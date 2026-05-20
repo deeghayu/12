@@ -29,7 +29,7 @@
             min-height: 100vh;
         }
 
-        /* Ambient Background */
+        /* Ambient Background Overlay */
         .bg-overlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -38,35 +38,16 @@
             pointer-events: none;
         }
 
-        /* FIXED FLOATING VESAK KUDU CONTAINER */
-        .lantern-container {
+        /* CONTAINER FOR LANTERNS */
+        #lanternBox {
             position: fixed;
             top: 0; left: 0; 
             width: 100vw; 
             height: 100vh;
-            z-index: 2; /* 100% ෂුවර් වෙන්න බැක්ග්‍රවුන්ඩ් එකට උඩින් ගත්තා */
+            z-index: 3; /* Content එකට යටින්, Background එකට උඩින්ම තියෙන්න */
             pointer-events: none;
             overflow: hidden;
-        }
-
-        /* NEW: ICON BASED LANTERN STYLE (NO CLIP-PATH BUGS) */
-        .vesak-kudu {
-            position: absolute;
-            bottom: -60px;
-            color: #ffca00;
-            text-shadow: 0 0 15px #ff9d00, 0 0 30px #ff6a00;
-            opacity: 0;
-            animation: floatUp 12s linear infinite;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        @keyframes floatUp {
-            0% { transform: translateY(0) rotate(0deg) scale(0.6); opacity: 0; }
-            15% { opacity: 0.6; }
-            85% { opacity: 0.6; }
-            100% { transform: translateY(-125vh) rotate(360deg) scale(1.2); opacity: 0; }
+            display: block !important; /* CSS වලින් hide වෙලා තිබ්බොත් force කරන්න */
         }
 
         /* Main Homepage Layout Wrapper */
@@ -77,7 +58,7 @@
             text-align: center; 
             display: block;
             position: relative;
-            z-index: 5; /* කෝන්ටෙන්ට් එක හැමවෙලේම උඩින් තියෙන්න */
+            z-index: 10; /* කෝන්ටෙන්ට් එක හැමවෙලේම උඩින්ම තියෙන්න */
         }
 
         /* SPINNING DHARMA CHAKRA */
@@ -270,7 +251,7 @@
             padding: 60px 20px;
             display: none;
             position: relative;
-            z-index: 5;
+            z-index: 10;
         }
 
         .back-btn {
@@ -362,12 +343,20 @@
             font-family: 'Poppins', sans-serif;
             font-weight: 600;
         }
+
+        /* DYNAMIC JAVASCRIPT KEYFRAMES INJECTION */
+        @keyframes jsFloatUp {
+            0% { transform: translateY(0) rotate(0deg) scale(0.6); opacity: 0; }
+            15% { opacity: 0.85; }
+            85% { opacity: 0.85; }
+            100% { transform: translateY(-125vh) rotate(360deg) scale(1.2); opacity: 0; }
+        }
     </style>
 </head>
 <body>
 
     <div class="bg-overlay"></div>
-    <div class="lantern-container" id="lanternBox"></div>
+    <div id="lanternBox"></div>
 
     <div id="mainHomepage">
         <header data-aos="fade-down">
@@ -452,6 +441,7 @@
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
+        // AOS සක්‍රීය කිරීම
         AOS.init({ duration: 800, once: true });
 
         const pageDataset = {
@@ -505,34 +495,41 @@
             window.scrollTo(0, 0);
         }
 
-        // NO-BUG ACCURATE LANTERN GENERATOR (USING FONT-AWESOME)
+        // FORCE INJECTED LANTERN GENERATOR (100% BULLETPROOF)
         function createVesakKudu() {
             const lanternBox = document.getElementById('lanternBox');
             if(!lanternBox) return;
             
             lanternBox.innerHTML = ''; 
-            const maxLanterns = 15; 
+            const maxLanterns = 16; 
 
             for (let i = 0; i < maxLanterns; i++) {
                 const kudu = document.createElement('div');
-                kudu.className = 'vesak-kudu';
                 
-                // CSS clip-path වෙනුවට කෙලින්ම Font Awesome තරුවක් (Star) හෝ විහිදෙන ආලෝක අයිකන දැම්මා
+                // CSS එකෙන් එන ප්‍රශ්න මඟහරින්න කෙළින්ම JS වලින් style එක inject කරනවා
+                kudu.style.position = 'absolute';
+                kudu.style.bottom = '-60px';
+                kudu.style.color = '#ffca00';
+                kudu.style.textShadow = '0 0 15px #ff9d00, 0 0 35px #ff6a00';
+                kudu.style.opacity = '0';
+                kudu.style.pointerEvents = 'none';
+                
+                // Animation එක inline දෙනවා බ්‍රවුසර් එකට මඟහරින්න බැරි වෙන්නම
+                kudu.style.animation = `jsFloatUp ${(Math.random() * 5 + 9)}s linear infinite`;
+                kudu.style.animationDelay = `${(Math.random() * 10)}s`;
+                
+                kudu.style.left = `${(Math.random() * 90)}vw`;
+                kudu.style.fontSize = `${(Math.random() * 15 + 14)}px`;
+
+                // Font Awesome Icon එක ඇතුළත් කිරීම
                 kudu.innerHTML = '<i class="fa-solid fa-star"></i>';
-                
-                kudu.style.left = (Math.random() * 90) + 'vw';
-                kudu.style.animationDuration = (Math.random() * 5 + 9) + 's'; 
-                kudu.style.animationDelay = (Math.random() * 10) + 's';
-                
-                // Font size එකෙන් සයිස් එක පාලනය කරන්නෙ
-                const size = Math.random() * 15 + 12; // 12px to 27px
-                kudu.style.fontSize = size + 'px';
 
                 lanternBox.appendChild(kudu);
             }
         }
 
-        window.addEventListener('DOMContentLoaded', createVesakKudu);
+        // පේජ් එකේ තියෙන සියලුම බාහිර ලයිබ්‍රරි (AOS ඇතුළුව) ලෝඩ් වෙලා අවසන් වූ පසුම රන් කරන්න
+        window.addEventListener('load', createVesakKudu);
     </script>
 </body>
 </html>
