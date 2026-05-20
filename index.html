@@ -76,29 +76,24 @@
             display: block;
         }
 
-        /* PREMIUM VIDEO CONTAINER CROPPER TRICK */
-        /* උඩ තියෙන Title බාර් එක සහ අනවශ්‍ය කෑලි හංගන ප්‍රධාන මැජික් කෑල්ල */
+        /* 100% CLEAN HTML5 VIDEO PLAYER (No YouTube branding at all) */
         .main-player-section {
             width: 100%;
             max-width: 850px;
             margin: 0 auto 20px auto;
             border-radius: 24px;
-            overflow: hidden; /* වීඩියෝ එකෙන් පිට පනින කෑලි හංගනවා */
+            overflow: hidden; 
             border: 1px solid rgba(255, 215, 0, 0.3);
             box-shadow: 0 20px 50px rgba(0, 0, 0, 0.9);
             aspect-ratio: 16/9;
-            position: relative;
             background: #000;
         }
 
-        /* යූටියුබ් එකේ උඩ කෑල්ලයි යට කෑල්ලයි ස්ක්‍රීන් එකෙන් එළියට තල්ලු කරලා හංගනවා */
-        .main-player-section iframe {
-            position: absolute;
-            top: -12%; /* උඩින් 12%ක් ඉහළට තල්ලු කරලා Title එක හංගනවා */
-            left: -1%;
-            width: 102%; 
-            height: 124%; /* වීඩියෝ එකේ උස වැඩි කරලා Zoom එකක් දෙනවා */
-            border: none;
+        .main-player-section video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* වීඩියෝ එක ප්ලේයර් එකට ලස්සනට ෆිට් වෙනවා */
+            display: block;
         }
 
         /* Play Now Button Styling */
@@ -218,7 +213,10 @@
         </header>
 
         <div class="main-player-section" data-aos="zoom-in">
-            <iframe id="vesakVideo" src="https://www.youtube.com/embed/SBRWnqemVJU?start=35&controls=0&showinfo=0&rel=0&iv_load_policy=3" title="Vesak Special Video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+            <video id="vesakVideo" preload="auto">
+                <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
         </div>
 
         <button class="play-now-btn" onclick="startVideoNow()">
@@ -267,11 +265,18 @@
     <script>
         AOS.init({ duration: 1000, once: true });
 
+        const video = document.getElementById('vesakVideo');
+
+        // වීඩියෝ එක ලෝඩ් වෙද්දීම හරියටම තත්පර 35 ට සෙට් කරන මැජික් කෑල්ල
+        video.addEventListener('loadedmetadata', function() {
+            video.currentTime = 35; 
+        });
+
         const textDatabase = {
             birth: {
                 title: "උතුම් බෝසත් උත්පත්තිය",
                 gatha: "ජාතෝ සකේ සුත්තපදේ මනුස්සෝ<br>ලෝකේ අගෝ අසමෝ සදේවකේ",
-                text: "මහමායා දේවි මව් කුස පිළිසිඳගෙන දස මසක් ඇවෑමෙන්, වෙසක් පුර පසළොස්වක පොහෝ දිනක ලුම්බිණි සල් උයනේදී අප මහා බෝසතාණන් වහන්සේ මෙලොව උපත ලැබූ සේක. උපත ලැබූ සැනින් උතුරු දිශාවට පියවර සතක් තබා අභීත සිංහනාද පෘථිවිය සිසාරා පැවැත්වූ සේක."
+                text: "මහමායා දේවි මව් කුස පිළිසිඳගෙන දස මසක් ඇවෑමෙන්, වෙසක් පුර පසළොස්වක පොහෝ දිනක ලුම්බිණි සල් උයනේදී අප මහා බෝසතාණන් වහන්සේ මෙලොව උපත ලැබූ සේක. උපත ලැබූ සැනින් උතුරු දිශාවට පියවර සතක් තබා අභීතසිංහනාද පෘථිවිය සිසාරා පැවැත්වූ සේක."
             },
             enlightenment: {
                 title: "ලොව්තුරා බුද්ධත්වයට පත්වීම",
@@ -280,15 +285,15 @@
             },
             parinirvana: {
                 title: "මහා පිරිනිවන් පෑම",
-                gatha: "අනිච්චා වත සංඛාරා - උප්පාදවයධම්මිනෝ<br>උප්පජ්ජිත්වා නිරුජඣන්ති - තේසං වූපසමෝ සුඛෝ",
+                gatha: "අනිච්චා වත සංඛාරා - උප්පාදවයධම්මිනෝ<br>උප්පජ්ජිත්වා නිරුජ්ඣන්ති - තේසං වූපසමෝ සුඛෝ",
                 text: "පුරා වසර 45ක් මුළුල්ලේ ලෝක සත්වයා කෙරෙහි මහා කරුණාවෙන් යුතුව සදහම් දේශනා කොට, වයස අවුරුදු 80 දී කුසිනාරා නුවර මල්ල රජදරුවන්ගේ උපවත්තන සල් උද්‍යානයේදී වෙසක් පුර පසළොස්වක පොහෝ දිනක අනුපාදිශේෂ නිර්වාණ ධාතුවෙන් බුදුරජාණන් වහන්සේ පිරිනිවන් පෑ සේක."
             }
         };
 
-        // Play Now බටන් එක ක්ලික් කරාම CSS Crop එක ඇතුළෙන්ම වීඩියෝ එක Autoplay වෙනවා
+        // Play Now ක්ලික් කරපු ගමන් තත්පර 35 ඉඳන් සුපිරියටම ප්ලේ වෙනවා
         function startVideoNow() {
-            const video = document.getElementById('vesakVideo');
-            video.src = "https://www.youtube.com/embed/SBRWnqemVJU?start=35&autoplay=1&controls=0&showinfo=0&rel=0&iv_load_policy=3";
+            video.currentTime = 35;
+            video.play();
         }
 
         function showTextDetails(key) {
