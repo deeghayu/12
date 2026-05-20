@@ -25,6 +25,8 @@
             font-family: 'Noto Sans Sinhala', sans-serif;
             overflow-x: hidden;
             scroll-behavior: smooth;
+            position: relative;
+            min-height: 100vh;
         }
 
         /* Ambient Background */
@@ -36,37 +38,41 @@
             pointer-events: none;
         }
 
-        /* FLOATING VESAK KUDU ANIMATION */
+        /* FIXED FLOATING VESAK KUDU CONTAINER (Z-INDEX FIXED) */
         .lantern-container {
             position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            z-index: -1;
+            top: 0; left: 0; 
+            width: 100vw; 
+            height: 100vh;
+            z-index: -1; /* සයිට් එකේ කෝන්ටෙන්ට් එකට යටින්, බැක්ග්‍රවුන්ඩ් එකට උඩින් */
             pointer-events: none;
+            overflow: hidden;
         }
 
         .vesak-kudu {
             position: absolute;
-            width: 25px; height: 25px;
+            bottom: -50px; /* Screen එකෙන් යටින්ම පටන් ගන්න */
             background: radial-gradient(circle, #ffea85 20%, #ff9d00 80%);
             clip-path: polygon(50% 0%, 100% 35%, 100% 65%, 50% 100%, 0% 65%, 0% 35%);
-            box-shadow: 0 0 20px 5px rgba(255, 157, 0, 0.8);
-            opacity: 0.6;
-            animation: floatUp 12s linear infinite;
+            box-shadow: 0 0 25px 8px rgba(255, 157, 0, 0.9);
+            filter: drop-shadow(0 0 15px rgba(255, 157, 0, 0.6));
+            opacity: 0;
+            animation: floatUp 14s linear infinite;
         }
 
         .vesak-kudu::after {
             content: '';
             position: absolute;
-            bottom: -8px; left: 25%; width: 50%; height: 10px;
+            bottom: -15%; left: 25%; width: 50%; height: 40%;
             background: linear-gradient(to bottom, #ff9d00, transparent);
             clip-path: polygon(0% 0%, 20% 100%, 40% 0%, 60% 100%, 80% 0%, 100% 100%, 100% 0%);
         }
 
         @keyframes floatUp {
-            0% { transform: translateY(105vh) rotate(0deg) scale(0.6); opacity: 0; }
+            0% { transform: translateY(0) rotate(0deg) scale(0.5); opacity: 0; }
             10% { opacity: 0.7; }
             90% { opacity: 0.7; }
-            100% { transform: translateY(-15vh) rotate(360deg) scale(1.2); opacity: 0; }
+            100% { transform: translateY(-120vh) rotate(360deg) scale(1.1); opacity: 0; }
         }
 
         /* Main Homepage Layout Wrapper */
@@ -76,6 +82,8 @@
             padding: 40px 20px; 
             text-align: center; 
             display: block;
+            position: relative;
+            z-index: 1;
         }
 
         /* SPINNING DHARMA CHAKRA */
@@ -110,7 +118,7 @@
             font-weight: 500;
         }
 
-        /* NEW: DYNAMIC GREETING WIDGET STYLING */
+        /* DYNAMIC GREETING WIDGET STYLING */
         .vesak-message-box {
             background: rgba(255, 215, 0, 0.03);
             border: 1px solid rgba(255, 215, 0, 0.2);
@@ -267,6 +275,8 @@
             margin: 0 auto;
             padding: 60px 20px;
             display: none;
+            position: relative;
+            z-index: 1;
         }
 
         .back-btn {
@@ -463,7 +473,7 @@
             },
             parinirvana: {
                 title: "මහා පිරිනිවන් පෑම",
-                gatha: "අනිච්චා වත සංඛාරා - උප්පාදවයධම්මිනෝ<br>උප්පජ්ජිත්වා නිරුජ්ඣන්ති - තේසං වූපසමෝ සුඛෝ",
+                gatha: "අනිච්චා වත සංඛාරා - උප්පාදවයධම්මිනෝ<br>උප්පජ්ජිත්වා නිරුජඣන්ති - තේසං වූපසමෝ සුඛෝ",
                 mainText: "පුරා වසර 45ක් මුළුල්ලේ ලෝක සත්වයා කෙරෙහි මහා කරුණාවෙන් යුතුව සදහම් දේශනා කොට, වයස අවුරුදු 80 දී කුසිනාරා නුවර මල්ල රජදරුවන්ගේ උපවත්තන සල් උද්‍යානයේදී වෙසක් පුර පසළොස්වක පොහෝ දිනක අනුපාදිශේෂ නිර්වාණ ධාතුවෙන් බුදුරජාණන් වහන්සේ පිරිනිවන් පෑ සේක. 'වයධම්මා සංඛාරා, අප්පමාදේන සම්පාදේථ' යන අවසාන බුදු වදනසිහිපත් කරමින් උන්වහන්සේ පිරිනිවී ගිය සේක."
             }
         };
@@ -501,24 +511,38 @@
             window.scrollTo(0, 0);
         }
 
-        // DYNAMIC VESAK KUDU GENERATOR
-        const lanternBox = document.getElementById('lanternBox');
+        // IMPROVED & ACCURATE VESAK KUDU GENERATOR
         function createVesakKudu() {
-            for (let i = 0; i < 15; i++) {
+            const lanternBox = document.getElementById('lanternBox');
+            if(!lanternBox) return;
+            
+            // කලින් තිබ්බ ඒවා ක්ලියර් කරලා අලුතෙන්ම හදන්න (Duplicate වීම් වැලැක්වීමට)
+            lanternBox.innerHTML = ''; 
+
+            const maxLanterns = 18; // කූඩු ගණන 18ක් දක්වා වැඩි කළා හිස් ගතිය නැති වෙන්නම
+
+            for (let i = 0; i < maxLanterns; i++) {
                 const kudu = document.createElement('div');
                 kudu.className = 'vesak-kudu';
-                kudu.style.left = Math.random() * 95 + 'vw';
-                kudu.style.animationDuration = (Math.random() * 6 + 9) + 's'; 
-                kudu.style.animationDelay = Math.random() * 8 + 's';
                 
-                const size = Math.random() * 15 + 15;
+                // Screen එක පුරාම random බෙදිලා යන විදිහට
+                kudu.style.left = (Math.random() * 92) + 'vw';
+                
+                // එක එක වෙලාවට උඩට එන්න delay එකක් සහ වේගයක් දුන්නා
+                kudu.style.animationDuration = (Math.random() * 6 + 10) + 's'; 
+                kudu.style.animationDelay = (Math.random() * 12) + 's';
+                
+                // කූඩුවල ප්‍රමාණයන් ලස්සනට වෙනස් කළා (Depth එකක් එන්න)
+                const size = Math.random() * 18 + 18; // 18px සිට 36px දක්වා
                 kudu.style.width = size + 'px';
                 kudu.style.height = size + 'px';
 
                 lanternBox.appendChild(kudu);
             }
         }
-        createVesakKudu();
+
+        // Page එක ලෝඩ් වුන ගමන් වෙසක් කූඩු ෆන්ක්ෂන් එක රන් කරන්න
+        window.addEventListener('DOMContentLoaded', createVesakKudu);
     </script>
 </body>
 </html>
