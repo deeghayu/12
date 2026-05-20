@@ -38,16 +38,65 @@
             pointer-events: none;
         }
 
-        /* CONTAINER FOR LANTERNS */
+        /* FIXED BACKGROUND LANTERN CONTAINER */
         #lanternBox {
             position: fixed;
             top: 0; left: 0; 
             width: 100vw; 
             height: 100vh;
-            z-index: 3; /* Content එකට යටින්, Background එකට උඩින්ම තියෙන්න */
+            z-index: 2; /* Content එකට යටින්, Background එකට උඩින් */
             pointer-events: none;
             overflow: hidden;
-            display: block !important; /* CSS වලින් hide වෙලා තිබ්බොත් force කරන්න */
+            display: block !important;
+        }
+
+        /* NEW CSS-BASED VESAK KUDU SHAPE (NO BUGS, NO IMAGES) */
+        .real-vesak-kudu {
+            position: absolute;
+            bottom: -100px;
+            opacity: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            pointer-events: none;
+            animation: jsFloatUp 14s linear infinite;
+        }
+
+        /* මැද ප්‍රධාන ෂේප් එක (Diamond/Rhombus) */
+        .kudu-body {
+            width: 0; height: 0;
+            border-left: 20px solid transparent;
+            border-right: 20px solid transparent;
+            position: relative;
+        }
+        /* කූඩුවේ උඩ ත්‍රිකෝණය */
+        .kudu-body::before {
+            content: ''; position: absolute;
+            top: -20px; left: -20px; width: 0; height: 0;
+            border-left: 20px solid transparent;
+            border-right: 20px solid transparent;
+        }
+        /* කූඩුවේ යට ත්‍රිකෝණය */
+        .kudu-body::after {
+            content: ''; position: absolute;
+            top: 0; left: -20px; width: 0; height: 0;
+            border-left: 20px solid transparent;
+            border-right: 20px solid transparent;
+        }
+
+        /* කූඩුවේ දෙපැත්තෙන් එල්ලෙන රිබන් වැල් (Ribbons) */
+        .kudu-tails {
+            display: flex;
+            justify-content: space-between;
+            width: 26px;
+            margin-top: 20px;
+        }
+        .kudu-tails::before, .kudu-tails::after {
+            content: '';
+            width: 4px; height: 18px;
+            border-radius: 2px;
+            opacity: 0.8;
         }
 
         /* Main Homepage Layout Wrapper */
@@ -58,7 +107,7 @@
             text-align: center; 
             display: block;
             position: relative;
-            z-index: 10; /* කෝන්ටෙන්ට් එක හැමවෙලේම උඩින්ම තියෙන්න */
+            z-index: 10; 
         }
 
         /* SPINNING DHARMA CHAKRA */
@@ -344,12 +393,12 @@
             font-weight: 600;
         }
 
-        /* DYNAMIC JAVASCRIPT KEYFRAMES INJECTION */
+        /* DYNAMIC LANTERN FLOAT UP ANIMATION */
         @keyframes jsFloatUp {
-            0% { transform: translateY(0) rotate(0deg) scale(0.6); opacity: 0; }
-            15% { opacity: 0.85; }
-            85% { opacity: 0.85; }
-            100% { transform: translateY(-125vh) rotate(360deg) scale(1.2); opacity: 0; }
+            0% { transform: translateY(0) rotate(0deg) scale(0.5); opacity: 0; }
+            15% { opacity: 0.8; }
+            85% { opacity: 0.8; }
+            100% { transform: translateY(-135vh) rotate(25deg) scale(1.1); opacity: 0; }
         }
     </style>
 </head>
@@ -367,7 +416,7 @@
 
         <div class="vesak-message-box" data-aos="fade-up">
             <p>
-                2026 වර්ෂය ගෞතම බුද්ධ ශාසනය නැවත පිබිදෙන වර්ෂයයි. මේ උදාවී ඇත්තේ, සියලුම සිත් බුද්ධාලම්භන ප්‍රීතිය ඇතිවන, බුදුන් වහන්සේගේ ඉපදීම, බුදුවීම සහ පිරිනිවීම සමරන උතුම් වෙසක් සමයයි. බුදුන් වදාළ දහම් මඟ සිතේ දරාගෙන ආමිස හා ප්‍රතිපත්ති පූජාවෙන් බුදුන් පුදමු!
+                2026 වර්ෂය ගෞතම බුද්ධ ශාසනය නැවත පිබිදෙන වර්ෂයයි. මේ උදාවී ඇත්තේ, සියලුම සිත් බුද්ධාලම්භන專ීතිය ඇතිවන, බුදුන් වහන්සේගේ ඉපදීම, බුදුවීම සහ පිරිනිවීම සමරන උතුම් වෙසක් සමයයි. බුදුන් වදාළ දහම් මඟ සිතේ දරාගෙන ආමිස හා ප්‍රතිපත්ති පූජාවෙන් බුදුන් පුදමු!
             </p>
             <h3 class="school-wish">
                 <i class="fa-solid fa-hands-praying"></i> මේ උතුම් වෙසක් සමය ඔබට ආධ්‍යාත්මික සුවය ගෙන දෙන පින්බර කාලයක් වේවායැයි ගොකරැල්ල මධ්‍ය මහා විද්‍යාලයේ වෙසක් සුබ පැතුමයි!
@@ -441,7 +490,6 @@
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        // AOS සක්‍රීය කිරීම
         AOS.init({ duration: 800, once: true });
 
         const pageDataset = {
@@ -495,40 +543,67 @@
             window.scrollTo(0, 0);
         }
 
-        // FORCE INJECTED LANTERN GENERATOR (100% BULLETPROOF)
+        // DYNAMIC HIGH-PERFORMANCE 25 VESAK LANTERNS GENERATOR
         function createVesakKudu() {
             const lanternBox = document.getElementById('lanternBox');
             if(!lanternBox) return;
             
             lanternBox.innerHTML = ''; 
-            const maxLanterns = 16; 
+            const totalLanterns = 25; // හරියටම වෙසක් කූඩු 25ක්
 
-            for (let i = 0; i < maxLanterns; i++) {
-                const kudu = document.createElement('div');
-                
-                // CSS එකෙන් එන ප්‍රශ්න මඟහරින්න කෙළින්ම JS වලින් style එක inject කරනවා
-                kudu.style.position = 'absolute';
-                kudu.style.bottom = '-60px';
-                kudu.style.color = '#ffca00';
-                kudu.style.textShadow = '0 0 15px #ff9d00, 0 0 35px #ff6a00';
-                kudu.style.opacity = '0';
-                kudu.style.pointerEvents = 'none';
-                
-                // Animation එක inline දෙනවා බ්‍රවුසර් එකට මඟහරින්න බැරි වෙන්නම
-                kudu.style.animation = `jsFloatUp ${(Math.random() * 5 + 9)}s linear infinite`;
-                kudu.style.animationDelay = `${(Math.random() * 10)}s`;
-                
-                kudu.style.left = `${(Math.random() * 90)}vw`;
-                kudu.style.fontSize = `${(Math.random() * 15 + 14)}px`;
+            // කූඩු වලට දාන්න ලස්සන වෙසක් Glow කලර්ස් ටිකක්
+            const colorThemes = [
+                { primary: '#ffca00', shadow: '#ff9d00', tail: '#ff5100' }, // Gold / Orange
+                { primary: '#ff4500', shadow: '#ff0000', tail: '#ffaa00' }, // Bright Red / Orange
+                { primary: '#ffec8b', shadow: '#b8860b', tail: '#ffd700' }  // Soft Yellow / Gold
+            ];
 
-                // Font Awesome Icon එක ඇතුළත් කිරීම
-                kudu.innerHTML = '<i class="fa-solid fa-star"></i>';
+            for (let i = 0; i < totalLanterns; i++) {
+                const kuduWrapper = document.createElement('div');
+                kuduWrapper.className = 'real-vesak-kudu';
+                
+                // Randomly තෝරගත්ත කලර් තීම් එකක් දානවා
+                const theme = colorThemes[Math.floor(Math.random() * colorThemes.length)];
+                
+                // කූඩුවේ මැද බොඩි එක හදනවා
+                const body = document.createElement('div');
+                body.className = 'kudu-body';
+                
+                // CSS වලින් Border Trick එක දාලා Diamond Shape එක ඇඳීම
+                body.style.borderTop = '20px solid ' + theme.primary;
+                body.style.borderBottom = '20px solid ' + theme.primary;
+                body.style.filter = `drop-shadow(0 0 12px ${theme.shadow}) drop-shadow(0 0 25px ${theme.primary})`;
 
-                lanternBox.appendChild(kudu);
+                // යටින් එල්ලෙන රිබන් වැල් (Tails)
+                const tails = document.createElement('div');
+                tails.className = 'kudu-tails';
+                
+                // CSS Injecting via Javascript variables
+                const styleTag = document.createElement('style');
+                styleTag.innerHTML = `
+                    .real-vesak-kudu .kudu-body::before { border-bottom: 20px solid ${theme.primary} !important; }
+                    .real-vesak-kudu .kudu-body::after { border-top: 20px solid ${theme.primary} !important; }
+                    .real-vesak-kudu .kudu-tails::before, .real-vesak-kudu .kudu-tails::after { background: ${theme.tail} !important; box-shadow: 0 0 8px ${theme.shadow}; }
+                `;
+                document.head.appendChild(styleTag);
+
+                kuduWrapper.appendChild(body);
+                kuduWrapper.appendChild(tails);
+
+                // Animations, Speed සහ Positions සේරම random සෙට් කරනවා ස්වාභාවිකව පාවෙන්න
+                kuduWrapper.style.left = `${(Math.random() * 92)}vw`;
+                kuduWrapper.style.animationDuration = `${(Math.random() * 6 + 10)}s`; // තත්පර 10-16 අතර වේගය
+                kuduWrapper.style.animationDelay = `${(Math.random() * 15)}s`; // මුල් ටික එකපාර එන්නෙ නැතුව කලින් කලට එන්න
+                
+                // පොඩි සහ ලොකු කූඩු කලවමේ පේන්න size එක වෙනස් කිරීම
+                const scale = Math.random() * 0.5 + 0.6; // 0.6x to 1.1x size
+                kuduWrapper.style.transform = `scale(${scale})`;
+
+                lanternBox.appendChild(kuduWrapper);
             }
         }
 
-        // පේජ් එකේ තියෙන සියලුම බාහිර ලයිබ්‍රරි (AOS ඇතුළුව) ලෝඩ් වෙලා අවසන් වූ පසුම රන් කරන්න
+        // පේජ් එක 100% ලෝඩ් වුණාම රන් කරන්න
         window.addEventListener('load', createVesakKudu);
     </script>
 </body>
