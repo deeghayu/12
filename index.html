@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>සිරි වෙසක් මංගල්‍යය - 2570</title>
+    <title>සිරි වෙසක් Mංගල්‍යය - 2570</title>
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
@@ -13,7 +13,7 @@
             --gold: #ffd700;
             --deep-gold: #b8860b;
             --bg-dark: #070502;
-            --card-bg: rgba(20, 16, 10, 0.75);
+            --card-bg: rgba(20, 16, 10, 0.7);
             --border-gold: rgba(255, 215, 0, 0.15);
         }
 
@@ -27,34 +27,30 @@
             scroll-behavior: smooth;
         }
 
-        /* Ambient Background Overlay */
+        /* Ambient Background */
         .bg-overlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: 
-                radial-gradient(circle at 15% 20%, rgba(255, 215, 0, 0.06) 0%, transparent 50%),
-                radial-gradient(circle at 85% 80%, rgba(255, 140, 0, 0.04) 0%, transparent 50%);
+            background: radial-gradient(circle at 50% 50%, rgba(255, 215, 0, 0.05) 0%, transparent 70%);
             z-index: -2;
             pointer-events: none;
         }
 
-        /* Floating Golden Lights (Pahan) */
+        /* Floating Pahan Lights */
         .pahan {
             position: fixed;
-            width: 4px; 
-            height: 4px;
+            width: 4px; height: 4px;
             background: var(--gold);
             border-radius: 50%;
-            box-shadow: 0 0 10px 2px var(--gold), 0 0 18px 4px rgba(255, 140, 0, 0.4);
-            z-index: 1;
+            box-shadow: 0 0 10px 2px var(--gold);
+            z-index: -1;
             pointer-events: none;
             animation: floatUp linear infinite;
         }
 
         @keyframes floatUp {
             0% { transform: translateY(105vh) scale(0); opacity: 0; }
-            15% { opacity: 0.8; }
-            85% { opacity: 0.4; }
+            50% { opacity: 0.8; }
             100% { transform: translateY(-10vh) scale(1.5); opacity: 0; }
         }
 
@@ -64,43 +60,98 @@
             margin: 0 auto; 
             padding: 50px 20px; 
             text-align: center; 
-            transition: transform 0.6s ease, opacity 0.5s ease;
         }
 
-        /* Typography Styles */
         h1 {
             font-family: 'Abhaya Libre', serif;
             font-size: clamp(2.5rem, 6vw, 4.2rem);
             color: var(--gold);
             margin: 0 0 10px 0;
-            font-weight: 700;
-            text-shadow: 0 0 20px rgba(255, 215, 0, 0.2);
         }
 
         .sub-header {
             color: #b0b0b0;
             font-size: clamp(0.9rem, 2vw, 1.1rem);
-            letter-spacing: 2px;
             margin-bottom: 40px;
             display: block;
         }
 
-        /* Main Video Box (Sambudu Themagula) */
+        /* Main Video Section */
         .main-player-section {
             width: 100%;
             max-width: 850px;
-            margin: 0 auto 50px auto;
+            margin: 0 auto 20px auto;
             border-radius: 24px;
             overflow: hidden;
             border: 1px solid rgba(255, 215, 0, 0.3);
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), 0 0 30px rgba(255, 215, 0, 0.1);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.9);
             aspect-ratio: 16/9;
         }
 
         .main-player-section iframe {
-            width: 100%;
-            height: 100%;
-            display: block;
+            width: 100%; height: 100%; display: block;
+        }
+
+        /* Play Now Button Styling */
+        .play-now-btn {
+            background: linear-gradient(135deg, var(--gold), var(--deep-gold));
+            color: #000000;
+            border: none;
+            padding: 14px 35px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 5px 20px rgba(255, 215, 0, 0.3);
+            transition: all 0.3s ease;
+            font-family: 'Noto Sans Sinhala', sans-serif;
+            margin-bottom: 40px;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .play-now-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 25px rgba(255, 215, 0, 0.5);
+        }
+
+        /* Dynamic Description Area (Shows text when cards clicked) */
+        .dynamic-info-box {
+            max-width: 850px;
+            margin: 0 auto 40px auto;
+            padding: 25px;
+            background: rgba(255, 215, 0, 0.03);
+            border: 1px dashed rgba(255, 215, 0, 0.2);
+            border-radius: 16px;
+            text-align: left;
+            display: none; /* Hidden until card is clicked */
+        }
+
+        .dynamic-info-box h2 {
+            font-family: 'Abhaya Libre', serif;
+            color: var(--gold);
+            margin: 0 0 15px 0;
+            font-size: 1.8rem;
+        }
+
+        .gatha-text {
+            font-family: 'Abhaya Libre', serif;
+            font-size: 1.2rem;
+            color: #f7e6c4;
+            background: rgba(139, 92, 26, 0.15);
+            padding: 15px;
+            border-left: 3px solid var(--gold);
+            border-radius: 6px;
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+
+        .body-desc-text {
+            color: #dcdcdc;
+            line-height: 1.7;
+            font-size: 1rem;
+            margin: 0;
         }
 
         /* Cards Grid Layout */
@@ -116,157 +167,32 @@
             border: 1px solid var(--border-gold);
             border-radius: 20px;
             padding: 20px;
-            transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
             cursor: pointer;
             text-align: left;
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
         }
 
         .card:hover {
-            transform: translateY(-8px);
+            transform: translateY(-5px);
             border-color: rgba(255, 215, 0, 0.5);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.6), 0 0 20px rgba(255, 215, 0, 0.1);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
         }
 
         .card-img-wrapper {
-            width: 100%;
-            height: 160px;
-            overflow: hidden;
-            border-radius: 12px;
-            margin-bottom: 15px;
+            width: 100%; height: 160px; overflow: hidden; border-radius: 12px; margin-bottom: 15px;
         }
 
         .card img {
-            width: 100%; 
-            height: 100%;
-            object-fit: cover; 
-            filter: brightness(0.8);
-            transition: all 0.5s ease;
-        }
-        
-        .card:hover img { 
-            filter: brightness(1.05);
+            width: 100%; height: 100%; object-fit: cover; filter: brightness(0.8);
         }
 
         .card .tag {
-            color: var(--gold);
-            font-size: 0.95rem;
-            font-weight: bold;
-            margin-bottom: 8px;
-            display: block;
-            font-family: 'Abhaya Libre', serif;
+            color: var(--gold); font-size: 0.95rem; font-weight: bold; margin-bottom: 8px; display: block; font-family: 'Abhaya Libre', serif;
         }
 
-        .card p { 
-            color: #aaaaaa; 
-            line-height: 1.5; 
-            margin: 0;
-            font-size: 0.88rem;
-        }
+        .card p { color: #aaaaaa; line-height: 1.5; margin: 0; font-size: 0.88rem; }
 
-        /* FULL SCREEN DYNAMIC DETAIL PAGE LAYER */
-        .detail-view {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background-color: #050301;
-            z-index: 10;
-            overflow-y: auto;
-            transform: translateX(100vw);
-            transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.4s ease;
-            pointer-events: none;
-            opacity: 0;
-        }
-
-        .detail-view.active {
-            transform: translateX(0);
-            pointer-events: all;
-            opacity: 1;
-        }
-
-        .detail-wrapper {
-            max-width: 850px;
-            margin: 0 auto;
-            padding: 50px 20px;
-        }
-
-        .back-btn {
-            background: rgba(255, 215, 0, 0.08);
-            border: 1px solid rgba(255, 215, 0, 0.25);
-            color: var(--gold);
-            padding: 10px 20px;
-            border-radius: 50px;
-            cursor: pointer;
-            font-weight: 700;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            font-family: 'Noto Sans Sinhala', sans-serif;
-            margin-bottom: 30px;
-        }
-
-        .back-btn:hover {
-            background: var(--gold);
-            color: #000;
-        }
-
-        .detail-video-wrapper {
-            width: 100%;
-            aspect-ratio: 16/9;
-            border-radius: 20px;
-            overflow: hidden;
-            border: 1px solid var(--border-gold);
-            margin-bottom: 35px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.6);
-        }
-
-        .detail-video-wrapper iframe {
-            width: 100%; height: 100%; display: block;
-        }
-
-        .detail-content h2 {
-            font-family: 'Abhaya Libre', serif;
-            font-size: 2.5rem;
-            color: var(--gold);
-            margin: 0 0 15px 0;
-        }
-
-        .gatha-box {
-            background: rgba(139, 92, 26, 0.1);
-            border-left: 4px solid var(--gold);
-            border-radius: 12px;
-            padding: 20px;
-            margin: 25px 0;
-            text-align: center;
-            font-family: 'Abhaya Libre', serif;
-            font-size: 1.25rem;
-            color: #f7e6c4;
-            line-height: 1.7;
-        }
-
-        .detail-body-text {
-            color: #d0d0d0;
-            font-size: 1.05rem;
-            line-height: 1.8;
-            text-align: justify;
-        }
-
-        .fact-list {
-            list-style: none; padding: 0; margin: 25px 0 0 0;
-        }
-
-        .fact-item {
-            position: relative; padding-left: 30px; margin-bottom: 15px; line-height: 1.7; color: #ccc;
-        }
-
-        .fact-item i {
-            position: absolute; left: 0; top: 4px; color: var(--gold);
-        }
-
-        footer {
-            margin-top: 60px; padding-top: 20px; border-top: 1px solid rgba(255, 215, 0, 0.05);
-        }
-
+        footer { margin-top: 60px; padding-top: 20px; border-top: 1px solid rgba(255, 215, 0, 0.05); }
         .dev-badge { color: rgba(255, 215, 0, 0.5); text-decoration: none; font-weight: 700; font-size: 0.9rem; }
         .unit-tag { margin-top: 5px; font-size: 0.75rem; color: #555; letter-spacing: 2px; }
     </style>
@@ -276,39 +202,49 @@
     <div class="bg-overlay"></div>
     <div id="pahanContainer"></div>
 
-    <div class="container" id="mainDashboard">
+    <div class="container">
         <header data-aos="fade-down">
             <h1>සිරි වෙසක් මංගල්‍යය</h1>
             <span class="sub-header">අසිරිමත් සම්බුදු තෙමඟුල උපහාරයකි</span>
         </header>
 
-        <div class="main-player-section" data-aos="zoom-in" data-aos-delay="100">
-            <iframe src="https://www.youtube.com/embed/S2qYJ-fQ038" title="Sambudu Themagula" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        <div class="main-player-section" data-aos="zoom-in">
+            <iframe id="vesakVideo" src="https://www.youtube.com/embed/SBRWnqemVJU?start=35" title="Vesak Special Video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        </div>
+
+        <button class="play-now-btn" onclick="startVideoNow()">
+            <i class="fa-solid fa-play"></i> Play Now
+        </button>
+
+        <div class="dynamic-info-box" id="infoBox">
+            <h2 id="infoTitle">මාතෘකාව</h2>
+            <div class="gatha-text" id="infoGatha">ගාථාව...</div>
+            <p class="body-desc-text" id="infoText">විස්තරය...</p>
         </div>
 
         <div class="grid">
-            <div class="card" data-aos="fade-up" data-aos-delay="100" onclick="openDetails('birth')">
+            <div class="card" data-aos="fade-up" data-aos-delay="100" onclick="showTextDetails('birth')">
                 <div class="card-img-wrapper">
                     <img src="https://i.ytimg.com/vi/hduMQXJkELU/hqdefault.jpg" alt="Birth">
                 </div>
                 <span class="tag">බෝසතුන්ගේ උත්පත්තිය</span>
-                <p>වැඩි විස්තර කියවීමට මෙතන Click කරන්න...</p>
+                <p>උතුම් බෝසත් උත්පත්තියේ විස්තර කියවීමට Click කරන්න...</p>
             </div>
             
-            <div class="card" data-aos="fade-up" data-aos-delay="200" onclick="openDetails('enlightenment')">
+            <div class="card" data-aos="fade-up" data-aos-delay="200" onclick="showTextDetails('enlightenment')">
                 <div class="card-img-wrapper">
                     <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR9sWNfP1QWfxzlxtVKFtkSSEMgV-xieoE_4w&s" alt="Enlightenment">
                 </div>
                 <span class="tag">උතුම් බුද්ධත්වය</span>
-                <p>වැඩි විස්තර කියවීමට මෙතන Click කරන්න...</p>
+                <p>ලොව්තුරා බුද්ධත්වයට පත්වීමේ විස්තර කියවීමට Click කරන්න...</p>
             </div>
 
-            <div class="card" data-aos="fade-up" data-aos-delay="300" onclick="openDetails('parinirvana')">
+            <div class="card" data-aos="fade-up" data-aos-delay="300" onclick="showTextDetails('parinirvana')">
                 <div class="card-img-wrapper">
                     <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRyqDaEsdklzgsFnBcB_8OMlNdkgVckCs2ZPg&s" alt="Parinirvana">
                 </div>
                 <span class="tag">මහා පිරිනිවන් පෑම</span>
-                <p>වැඩි විස්තර කියවීමට මෙතන Click කරන්න...</p>
+                <p>මහා පිරිනිවන් පෑමේ විස්තර කියවීමට Click කරන්න...</p>
             </div>
         </div>
 
@@ -318,129 +254,68 @@
         </footer>
     </div>
 
-
-    <div class="detail-view" id="detailView">
-        <div class="detail-wrapper">
-            <button class="back-btn" onclick="closeDetails()">
-                <i class="fa-solid fa-arrow-left"></i> පෙර පිටුවට
-            </button>
-            
-            <div id="dynamicDetailContent">
-                </div>
-        </div>
-    </div>
-
-
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         AOS.init({ duration: 1000, once: true });
 
-        // Database containing detailed separate page contents
-        const eventDetails = {
+        // TEXT ONLY DATABASE (කාඩ්ස් වලට අදාළ විස්තර විතරයි)
+        const textDatabase = {
             birth: {
                 title: "උතුම් බෝසත් උත්පත්තිය",
-                videoUrl: "https://www.youtube.com/embed/hduMQXJkELU?start=29&autoplay=1",
                 gatha: "ජාතෝ සකේ සුත්තපදේ මනුස්සෝ<br>ලෝකේ අගෝ අසමෝ සදේවකේ",
-                mainText: "මහමායා දේවි මව් කුස පිළිසිඳගෙන දස මසක් ඇවෑමෙන්, ශාක්‍ය ජනපදයේ කපිලවස්තු පුරයේ සිට දේවදහ නුවර බලා යන අතරමගදී ලුම්බිණි සල් උයනේදී අප මහා බෝසතාණන් වහන්සේ මෙලොව උපත ලැබූ සේක.",
-                facts: [
-                    "<strong>සිදුවූ ස්ථානය:</strong> නේපාලයේ ලුම්බිණි සල් උද්‍යානය.",
-                    "<strong>මව්පියන්:</strong> සුද්ධෝදන මහරජතුමා සහ මහාමායා දේවිය.",
-                    "උපත ලැබූ සැනින් බෝසතුන් පියවර සතක් තබා සිංහනාද පැවැත්වීම."
-                ]
+                text: "මහමායා දේවි මව් කුස පිළිසිඳගෙන දස මසක් ඇවෑමෙන්, වෙසක් පුර පසළොස්වක පොහෝ දිනක ලුම්බිණි සල් උයනේදී අප මහා බෝසතාණන් වහන්සේ මෙලොව උපත ලැබූ සේක. උපත ලැබූ සැනින් උතුරු දිශාවට පියවර සතක් තබා අභීත සිංහනාද පෘථිවිය සිසාරා පැවැත්වූ සේක."
             },
             enlightenment: {
                 title: "ලොව්තුරා බුද්ධත්වයට පත්වීම",
-                videoUrl: "https://www.youtube.com/embed/S2qYJ-fQ038?start=10&autoplay=1",
-                gatha: "අනේකජාති සංසාරං - සන්ධාවිස්සං අනිබ්බිසං",
-                mainText: "ගිහිගෙයින් නික්ම සය වසරක් මුළුල්ලේ අතිශය දුෂ්කර වත්පිළිවෙත්හි යෙදෙමින් අවසානයේ මධ්‍යම ප්‍රතිපදාව ඔස්සේ ආනාපානසති භාවනාව වඩා බුද්ධගයාවේ වජ්‍රාසනය මත වැඩසිටිමින් බෝසතාණන් වහන්සේ සර්වඥතාඥානය අවබෝධ කරගෙන ලොව්තුරා බුදු බවට පත්වූ සේක.",
-                facts: [
-                    "<strong>සිදුවූ ස්ථානය:</strong> බුද්ධගයාවේ ශ්‍රී මහා බෝධි මණ්ඩලය.",
-                    "<strong>වයස:</strong> අවුරුදු 35 දී උදාර වෙසක් පුර පසළොස්වක පොහෝ දිනක බුදු බව ලැබීම.",
-                    "දසබිම්බරක් මාර සේනාව පරාජය කර චතුරාර්ය සත්‍යය අවබෝධ කර ගැනීම."
-                ]
+                gatha: "අනේකජාති සංසාරං - සන්ධාවිස්සං අනිබ්බිසං<br>ගහකාරකං ගවේසන්තෝ - දුක්ඛා ජාති පුනප්පුනං",
+                text: "සය වසරක් මුළුල්ලේ අතිශය දුෂ්කර ක්‍රියා කොට, අවසානයේ මධ්‍යම ප්‍රතිපදාව ඔස්සේ බුද්ධගයාවේ ශ්‍රී මහා බෝධි මූලයේ වජ්‍රාසනය මත වැඩසිටිමින්, දසබිම්බරක් මාර සේනාව පරාජය කොට උදාර වෙසක් පොහෝ දිනක ලොව්තුරා බුද්ධත්වයට පත් වූ සේක."
             },
             parinirvana: {
                 title: "මහා පිරිනිවන් පෑම",
-                // උඹ දුන්න වීඩියෝ එක වෙනම පේජ් එකේ තත්පර 35න් ප්ලේ වෙන්න සෙට් කළා
-                videoUrl: "https://www.youtube.com/embed/SBRWnqemVJU?start=35&autoplay=1",
-                gatha: "අනිච්චා වත සංඛාරා - උප්පාදවයධම්මිනෝ",
-                mainText: "පුරා වසර 45ක් මුළුල්ලේ මුළු මහත් ලෝක සත්වයා කෙරෙහි මහා කරුණාවෙන් යුතුව ධර්මය දේශනා කොට, අසිරිමත් බුදු සිරිතේ අවසාන භාගය සනිටුහන් කරමින් වයස අවුරුදු 80 දී කුසිනාරා නුවර උපවත්තන සල් උයනේදී භාග්‍යවතුන් වහන්සේ පිරිනිවන් පෑ සේක.",
-                facts: [
-                    "<strong>සිදුවූ ස්ථානය:</strong> කුසිනාරා නුවර උපවත්තන සල් උද්‍යානය.",
-                    "<strong>අවසාන වචනය:</strong> වයධම්මා සංඛාරා, අප්පමාදේන සම්පාදේථ (සියලු සංස්කාර ධර්මයෝ නැසෙන සුළුය, අප්‍රමාදීව කුසල් කරන්න).",
-                    "අවසාන ශ්‍රාවකයා ලෙස සුභද්‍ර පරිව්‍රාජකයා සසුනේ පැවිදි කිරීම."
-                ]
+                gatha: "අනිච්චා වත සංඛාරා - උප්පාදවයධම්මිනෝ<br>උප්පජ්ජිත්වා නිරුජ්ඣන්ති - තේසං වූපසමෝ සුඛෝ",
+                text: "පුරා වසර 45ක් මුළුල්ලේ ලෝක සත්වයා කෙරෙහි මහා කරුණාවෙන් යුතුව සදහම් දේශනා කොට, වයස අවුරුදු 80 දී කුසිනාරා නුවර මල්ල රජදරුවන්ගේ උපවත්තන සල් උද්‍යානයේදී වෙසක් පුර පසළොස්වක පොහෝ දිනක අනුපාදිශේෂ නිර්වාණ ධාතුවෙන් බුදුරජාණන් වහන්සේ පිරිනිවන් පෑ සේක."
             }
         };
 
-        // Click Card -> Opens Separate Page Layer Beautifully
-        function openDetails(eventId) {
-            const data = eventDetails[eventId];
-            const contentContainer = document.getElementById('dynamicDetailContent');
-            const mainDashboard = document.getElementById('mainDashboard');
-            const detailView = document.getElementById('detailView');
+        // Play Now බටන් එක ක්ලික් කරාම විතරක් වීඩියෝ එක Autoplay වෙන ෆන්ක්ෂන් එක
+        function startVideoNow() {
+            const video = document.getElementById('vesakVideo');
+            video.src = "https://www.youtube.com/embed/SBRWnqemVJU?start=35&autoplay=1";
+        }
 
-            let factsHTML = '';
-            data.facts.forEach(fact => {
-                factsHTML += `<li class="fact-item"><i class="fa-solid fa-dharmachakra"></i> ${fact}</li>`;
+        // කාඩ් එකක් ක්ලික් කරාම කිසිම වීඩියෝ එකක් ප්ලේ නොවී විස්තර විතරක් මැදින් පෙන්වන ෆන්ක්ෂන් එක
+        function showTextDetails(key) {
+            const box = document.getElementById('infoBox');
+            const title = document.getElementById('infoTitle');
+            const gatha = document.getElementById('infoGatha');
+            const text = document.getElementById('infoText');
+            const data = textDatabase[key];
+
+            // Content එක විතරක් වෙනස් කරනවා
+            title.innerText = data.title;
+            gatha.innerHTML = data.gatha;
+            text.innerText = data.text;
+
+            // බොක්ස් එක ලස්සනට පෙන්වනවා
+            box.style.display = 'block';
+
+            // විස්තරේ ලඟට Smooth විදිහට පේජ් එක ස්ක්‍රෝල් කරනවා
+            window.scrollTo({
+                top: box.offsetTop - 60,
+                behavior: 'smooth'
             });
-
-            // Creates independent layout inside the opened page
-            contentContainer.innerHTML = `
-                <div class="detail-video-wrapper" data-aos="zoom-in">
-                    <iframe src="${data.videoUrl}" title="Event Video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                </div>
-                <div class="detail-content">
-                    <h2 data-aos="fade-up">${data.title}</h2>
-                    <div class="gatha-box" data-aos="fade-up">
-                        ${data.gatha}
-                    </div>
-                    <p class="detail-body-text" data-aos="fade-up">
-                        ${data.mainText}
-                    </p>
-                    <ul class="fact-list" data-aos="fade-up">
-                        ${factsHTML}
-                    </ul>
-                </div>
-            `;
-
-            // Separate full-screen slide animation
-            mainDashboard.style.opacity = '0';
-            mainDashboard.style.transform = 'scale(0.95)';
-            
-            setTimeout(() => {
-                detailView.classList.add('active');
-                AOS.refresh();
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            }, 150);
         }
 
-        // Close Separate Page -> Back to Main Dashboard safely
-        function closeDetails() {
-            const mainDashboard = document.getElementById('mainDashboard');
-            const detailView = document.getElementById('detailView');
-            const contentContainer = document.getElementById('dynamicDetailContent');
-
-            detailView.classList.remove('active');
-            
-            setTimeout(() => {
-                mainDashboard.style.opacity = '1';
-                mainDashboard.style.transform = 'scale(1)';
-                contentContainer.innerHTML = ''; // Destroys video element to completely mute background audio
-                AOS.refresh();
-            }, 250);
-        }
-
-        // Pahan Generator
-        const container = document.getElementById('pahanContainer');
+        // Pahan Particles
+        const pahanBox = document.getElementById('pahanContainer');
         function createPahan() {
-            for (let i = 0; i < 25; i++) {
+            for (let i = 0; i < 20; i++) {
                 const pahan = document.createElement('div');
                 pahan.className = 'pahan';
                 pahan.style.left = Math.random() * 100 + 'vw';
-                pahan.style.animationDuration = (Math.random() * 5 + 6) + 's'; 
+                pahan.style.animationDuration = (Math.random() * 5 + 5) + 's'; 
                 pahan.style.animationDelay = Math.random() * 5 + 's';
-                container.appendChild(pahan);
+                pahanBox.appendChild(pahan);
             }
         }
         createPahan();
