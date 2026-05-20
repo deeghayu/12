@@ -3,18 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>සිරි වෙසක් මංගල්‍යය - 2570</title>
+    <title>ශාක්‍යසිංහ මංගල්‍යය - 2570</title>
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Abhaya+Libre:wght@400;700&family=Noto+Sans+Sinhala:wght@300;500;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Abhaya+Libre:wght@400;700&family=Noto+Sans+Sinhala:wght@300;500;700&family=Poppins:wght@400;600;700&display=swap');
 
         :root {
             --gold: #ffd700;
             --deep-gold: #b8860b;
             --bg-dark: #070502;
-            --card-bg: rgba(20, 16, 10, 0.75);
-            --border-gold: rgba(255, 215, 0, 0.15);
+            --card-bg: rgba(20, 16, 10, 0.85);
+            --border-gold: rgba(255, 215, 0, 0.2);
         }
 
         body, html {
@@ -31,56 +31,168 @@
         .bg-overlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle at 50% 50%, rgba(255, 215, 0, 0.05) 0%, transparent 70%);
+            background: radial-gradient(circle at 50% 50%, rgba(255, 215, 0, 0.06) 0%, transparent 75%);
             z-index: -2;
             pointer-events: none;
         }
 
-        /* 1. MAIN HOMEPAGE LAYOUT WRAPPER */
+        /* FLOATING VESAK KUDU ANIMATION */
+        .lantern-container {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .vesak-kudu {
+            position: absolute;
+            width: 25px; height: 25px;
+            background: radial-gradient(circle, #ffea85 20%, #ff9d00 80%);
+            clip-path: polygon(50% 0%, 100% 35%, 100% 65%, 50% 100%, 0% 65%, 0% 35%);
+            box-shadow: 0 0 20px 5px rgba(255, 157, 0, 0.8);
+            opacity: 0.6;
+            animation: floatUp 12s linear infinite;
+        }
+
+        .vesak-kudu::after {
+            content: '';
+            position: absolute;
+            bottom: -8px; left: 25%; width: 50%; height: 10px;
+            background: linear-gradient(to bottom, #ff9d00, transparent);
+            clip-path: polygon(0% 0%, 20% 100%, 40% 0%, 60% 100%, 80% 0%, 100% 100%, 100% 0%);
+        }
+
+        @keyframes floatUp {
+            0% { transform: translateY(105vh) rotate(0deg) scale(0.6); opacity: 0; }
+            10% { opacity: 0.7; }
+            90% { opacity: 0.7; }
+            100% { transform: translateY(-15vh) rotate(360deg) scale(1.2); opacity: 0; }
+        }
+
+        /* Main Homepage Layout Wrapper */
         #mainHomepage {
             max-width: 1050px; 
             margin: 0 auto; 
-            padding: 50px 20px; 
+            padding: 40px 20px; 
             text-align: center; 
-            display: block; /* මුල් පිටුව පෙන්වීමට */
+            display: block;
+        }
+
+        /* SPINNING DHARMA CHAKRA */
+        .dharma-chakra {
+            font-size: 4.5rem;
+            color: var(--gold);
+            text-shadow: 0 0 25px rgba(255, 215, 0, 0.6);
+            animation: rotateChakra 25s linear infinite;
+            margin-bottom: 10px;
+            display: inline-block;
+        }
+
+        @keyframes rotateChakra {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
         }
 
         h1 {
             font-family: 'Abhaya Libre', serif;
-            font-size: clamp(2.5rem, 6vw, 4.2rem);
+            font-size: clamp(2.5rem, 6vw, 4rem);
             color: var(--gold);
             margin: 0 0 10px 0;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
         }
 
         .sub-header {
-            color: #b0b0b0;
-            font-size: clamp(0.9rem, 2vw, 1.1rem);
-            margin-bottom: 40px;
+            color: #ffd700;
+            font-size: clamp(1rem, 2.5vw, 1.25rem);
+            margin-bottom: 25px;
             display: block;
+            letter-spacing: 1px;
+            font-weight: 500;
         }
 
-        /* 100% CLEAN CROPPER: YouTube එකේ කිසිම බාර් එකක් පේන්නැති වෙන්න වටෙන් කපන බොක්ස් එක */
+        /* NEW: DYNAMIC GREETING WIDGET STYLING */
+        .vesak-message-box {
+            background: rgba(255, 215, 0, 0.03);
+            border: 1px solid rgba(255, 215, 0, 0.2);
+            border-radius: 20px;
+            padding: 25px 30px;
+            max-width: 850px;
+            margin: 0 auto 40px auto;
+            backdrop-filter: blur(10px);
+            box-shadow: inset 0 0 20px rgba(255, 215, 0, 0.02), 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .vesak-message-box p {
+            color: #e0e0e0;
+            font-size: clamp(0.95rem, 2vw, 1.1rem);
+            line-height: 1.8;
+            margin: 0 0 15px 0;
+            text-align: justify;
+        }
+
+        .vesak-message-box .school-wish {
+            color: var(--gold);
+            font-family: 'Abhaya Libre', serif;
+            font-size: clamp(1.1rem, 2.2vw, 1.35rem);
+            font-weight: 700;
+            margin: 0;
+            border-top: 1px dashed rgba(255, 215, 0, 0.2);
+            padding-top: 15px;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+        }
+
+        /* Clean Video Cropper Box */
         .main-player-section {
             width: 100%;
             max-width: 850px;
-            margin: 0 auto 20px auto;
+            margin: 0 auto 25px auto;
             border-radius: 24px;
             overflow: hidden; 
-            border: 1px solid rgba(255, 215, 0, 0.3);
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.9);
+            border: 1px solid rgba(255, 215, 0, 0.35);
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.95);
             aspect-ratio: 16/9;
             position: relative;
             background: #000;
         }
 
-        /* හැම Monitor එකකම YouTube Title එක සදහටම හංගන්න උඩින් සහ යටින් 15%ක් Crop කරනවා */
         .main-player-section iframe {
             position: absolute;
-            top: -15%; 
-            left: -1%;
-            width: 102%; 
-            height: 130%; 
-            border: none;
+            top: -15%; left: -1%; width: 102%; height: 130%; border: none;
+        }
+
+        /* GLOWING PAHAN PELIYA */
+        .pahan-peliya {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin: 20px 0 35px 0;
+        }
+
+        .pahan-container {
+            display: inline-block;
+            position: relative;
+        }
+
+        .pahan-clay {
+            width: 35px; height: 18px;
+            background: linear-gradient(to bottom, #9c521f, #5e2f0e);
+            border-radius: 0 0 50px 50px;
+            box-shadow: 0 5px 10px rgba(0,0,0,0.5);
+        }
+
+        .pahan-flame {
+            width: 12px; height: 22px;
+            background: linear-gradient(to top, #ff6a00, #ffca00, #ffffff);
+            border-radius: 50% 50% 20% 20% / 60% 60% 40% 40%;
+            margin: 0 auto 2px auto;
+            position: relative;
+            animation: flicker 0.15s infinite alternate;
+            box-shadow: 0 0 20px #ff9d00, 0 0 40px #ff6a00;
+        }
+
+        @keyframes flicker {
+            0% { transform: scaleX(0.95) rotate(-1deg); opacity: 0.9; }
+            100% { transform: scaleX(1.05) rotate(1deg); opacity: 1; }
         }
 
         /* Play Now Button Styling */
@@ -88,23 +200,23 @@
             background: linear-gradient(135deg, var(--gold), var(--deep-gold));
             color: #000000;
             border: none;
-            padding: 14px 35px;
-            font-size: 1.1rem;
+            padding: 15px 40px;
+            font-size: 1.15rem;
             font-weight: 700;
             border-radius: 50px;
             cursor: pointer;
-            box-shadow: 0 5px 20px rgba(255, 215, 0, 0.3);
+            box-shadow: 0 5px 25px rgba(255, 215, 0, 0.35);
             transition: all 0.3s ease;
             font-family: 'Noto Sans Sinhala', sans-serif;
-            margin-bottom: 40px;
             display: inline-flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
+            margin-bottom: 25px;
         }
 
         .play-now-btn:hover {
             transform: scale(1.05);
-            box-shadow: 0 8px 25px rgba(255, 215, 0, 0.5);
+            box-shadow: 0 8px 30px rgba(255, 215, 0, 0.6);
         }
 
         /* Grid Cards Layout */
@@ -112,50 +224,51 @@
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 25px;
-            margin-top: 20px;
+            margin-top: 35px;
         }
 
         .card {
-            background: var(--card-bg);
+            background: rgba(20, 16, 10, 0.85);
             border: 1px solid var(--border-gold);
             border-radius: 20px;
             padding: 20px;
             cursor: pointer;
             text-align: left;
             transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
         }
 
         .card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-8px);
             border-color: rgba(255, 215, 0, 0.5);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            box-shadow: 0 15px 30px rgba(255,215,0,0.1);
         }
 
         .card-img-wrapper {
             width: 100%; height: 160px; overflow: hidden; border-radius: 12px; margin-bottom: 15px;
+            border: 1px solid rgba(255, 215, 0, 0.1);
         }
 
         .card img {
-            width: 100%; height: 100%; object-fit: cover; filter: brightness(0.8);
+            width: 100%; height: 100%; object-fit: cover; filter: brightness(0.75);
+            transition: transform 0.5s ease;
         }
+        .card:hover img { transform: scale(1.05); filter: brightness(0.9); }
 
         .card .tag {
             color: var(--gold); font-size: 0.95rem; font-weight: bold; margin-bottom: 8px; display: block; font-family: 'Abhaya Libre', serif;
         }
 
-        .card p { color: #aaaaaa; line-height: 1.5; margin: 0; font-size: 0.88rem; }
+        .card p { color: #b0b0b0; line-height: 1.5; margin: 0; font-size: 0.88rem; }
 
-
-        /* 2. COMPLETELY SEPARATE DETAILED PAGE LAYOUT */
-        /* කාඩ් එකක් ක්ලික් කරාම විතරක් මුළු ස්ක්‍රීන් එකම වැහෙන්න ඕපන් වෙන පේජ් එක */
+        /* Separate Details Page Wrapper */
         #detailPage {
             max-width: 800px;
             margin: 0 auto;
             padding: 60px 20px;
-            display: none; /* ආරම්භයේදී මේ පිටුව සම්පූර්ණයෙන්ම හංගලා තියෙන්නේ */
+            display: none;
         }
 
-        /* Back Button Styling */
         .back-btn {
             background: rgba(255, 215, 0, 0.08);
             border: 1px solid rgba(255, 215, 0, 0.25);
@@ -170,7 +283,6 @@
             font-family: 'Noto Sans Sinhala', sans-serif;
             margin-bottom: 45px;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
         }
 
         .back-btn:hover {
@@ -200,29 +312,85 @@
         }
 
         .detail-body-text {
-            color: #dcdcdc; 
-            font-size: 1.15rem; 
-            line-height: 1.9; 
-            text-align: justify;
+            color: #e0e0e0; font-size: 1.15rem; line-height: 1.9; text-align: justify;
         }
 
-        footer { margin-top: 60px; padding-top: 20px; border-top: 1px solid rgba(255, 215, 0, 0.05); text-align: center;}
-        .dev-badge { color: rgba(255, 215, 0, 0.5); text-decoration: none; font-weight: 700; font-size: 0.9rem; }
-        .unit-tag { margin-top: 5px; font-size: 0.75rem; color: #555; letter-spacing: 2px; }
+        /* PREMIUM DYNAMIC GOLD FOOTER STYLING */
+        footer { 
+            margin-top: 70px; 
+            padding-top: 25px; 
+            border-top: 1px solid rgba(255, 215, 0, 0.08); 
+            text-align: center;
+        }
+
+        .dev-badge { 
+            font-family: 'Poppins', sans-serif;
+            color: rgba(255, 255, 255, 0.6); 
+            text-decoration: none; 
+            font-size: 0.95rem; 
+            font-weight: 400;
+            letter-spacing: 0.5px;
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+
+        .dev-name {
+            font-weight: 700;
+            background: linear-gradient(135deg, #ffe56f 0%, #ffc107 50%, #b8860b 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: inline-block;
+            padding: 0 2px;
+            text-shadow: 0 0 15px rgba(255, 215, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .dev-badge:hover .dev-name {
+            transform: scale(1.03);
+            filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.6));
+        }
+
+        .unit-tag { 
+            margin-top: 6px; 
+            font-size: 0.75rem; 
+            color: #555; 
+            letter-spacing: 2px; 
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+        }
     </style>
 </head>
 <body>
 
     <div class="bg-overlay"></div>
+    <div class="lantern-container" id="lanternBox"></div>
 
     <div id="mainHomepage">
         <header data-aos="fade-down">
-            <h1>සිරි වෙසක් මංගල්‍යය</h1>
-            <span class="sub-header">අසිරිමත් සම්බුදු තෙමඟුල උපහාරයකි</span>
+            <div class="dharma-chakra"><i class="fa-solid fa-dharmachakra"></i></div>
+            <h1>ශාක්‍යසිංහ මංගල්‍යය</h1>
+            <span class="sub-header">2570 ශ්‍රී සම්බුද්ධත්ව ජයන්ති උපහාරය</span>
         </header>
+
+        <div class="vesak-message-box" data-aos="fade-up">
+            <p>
+                2026 වර්ෂය ගෞතම බුද්ධ ශාසනය නැවත පිබිදෙන වර්ෂයයි. මේ උදාවී ඇත්තේ, සියලුම සිත් බුද්ධාලම්භන ප්‍රීතිය ඇතිවන, බුදුන් වහන්සේගේ ඉපදීම, බුදුවීම සහ පිරිනිවීම සමරන උතුම් වෙසක් සමයයි. බුදුන් වදාළ දහම් මඟ සිතේ දරාගෙන ආමිස හා ප්‍රතිපත්ති පූජාවෙන් බුදුන් පුදමු!
+            </p>
+            <h3 class="school-wish">
+                <i class="fa-solid fa-hands-praying"></i> මේ උතුම් වෙසක් සමය ඔබට ආධ්‍යාත්මික සුවය ගෙන දෙන පින්බර කාලයක් වේවායැයි ගොකරැල්ල මධ්‍ය මහා විද්‍යාලයේ වෙසක් සුබ පැතුමයි!
+            </h3>
+        </div>
 
         <div class="main-player-section" data-aos="zoom-in">
             <iframe id="vesakVideo" src="https://www.youtube.com/embed/SBRWnqemVJU?start=35&controls=0&showinfo=0&rel=0&iv_load_policy=3" title="Vesak Special Video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        </div>
+
+        <div class="pahan-peliya" data-aos="fade-up">
+            <div class="pahan-container"><div class="pahan-flame"></div><div class="pahan-clay"></div></div>
+            <div class="pahan-container"><div class="pahan-flame"></div><div class="pahan-clay"></div></div>
+            <div class="pahan-container"><div class="pahan-flame"></div><div class="pahan-clay"></div></div>
+            <div class="pahan-container"><div class="pahan-flame"></div><div class="pahan-clay"></div></div>
+            <div class="pahan-container"><div class="pahan-flame"></div><div class="pahan-clay"></div></div>
         </div>
 
         <button class="play-now-btn" onclick="startVideoNow()">
@@ -256,32 +424,32 @@
         </div>
 
         <footer>
-            <a href="#" class="dev-badge">M.U.R.D.D. Fonseka</a>
+            <div class="dev-badge">
+                Web Developed by <span class="dev-name">M.U.R.D.D. Fonseka</span>
+            </div>
             <p class="unit-tag">G.C.C. MEDIA UNIT & ICT CLUB</p>
         </footer>
     </div>
-
 
     <div id="detailPage">
         <button class="back-btn" onclick="backToHome()">
             <i class="fa-solid fa-arrow-left"></i> පෙර පිටුවට
         </button>
         
-        <div id="pageDynamicContent" class="detail-content">
-            </div>
+        <div id="pageDynamicContent" class="detail-content"></div>
         
         <footer>
-            <a href="#" class="dev-badge">M.U.R.D.D. Fonseka</a>
+            <div class="dev-badge">
+                Web Developed by <span class="dev-name">M.U.R.D.D. Fonseka</span>
+            </div>
             <p class="unit-tag">G.C.C. MEDIA UNIT & ICT CLUB</p>
         </footer>
     </div>
-
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         AOS.init({ duration: 800, once: true });
 
-        // විස්තර විතරක් අඩංගු ඩේටාබේස් එක
         const pageDataset = {
             birth: {
                 title: "උතුම් බෝසත් උත්පත්තිය",
@@ -290,56 +458,67 @@
             },
             enlightenment: {
                 title: "ලොව්තුරා බුද්ධත්වයට පත්වීම",
-                gatha: "අනේකජාති සංසාරං - සන්ධාවිස්සං අනිබ්බිසං<br>Capගහකාරකං ගවේසන්තෝ - දුක්ඛා ජාති පුනප්පුනං",
+                gatha: "අනේකජාති සංසාරං - සන්ධාවිස්සං අනිබ්බිසං<br>ගහකාරකං ගවේසන්තෝ - දුක්ඛා ජාති පුනප්පුනං",
                 mainText: "සය වසරක් මුළුල්ලේ අතිශය දුෂ්කර ක්‍රියා කොට, අවසානයේ මධ්‍යම ප්‍රතිපදාව ඔස්සේ ආනාපානසති භාවනාව වඩා බුද්ධගයාවේ ශ්‍රී මහා බෝධි මූලයේ වජ්‍රාසනය මත වැඩසිටිමින්, දසබිම්බරක් මාර සේනාව පරාජය කොට උදාර වෙසක් පොහෝ දිනක ලොව්තුරා බුද්ධත්වයට පත් වූ සේක. චතුරාර්ය සත්‍යය අවබෝධ කරගනිමින් ලෝකයටම සැනසීමේ උතුම් නිවන් මඟ දේශනා කරන්නට මඟ පෑදුනේ මෙම අසිරිමත් බුද්ධත්වයත් සමඟය."
             },
             parinirvana: {
                 title: "මහා පිරිනිවන් පෑම",
-                gatha: "අනිච්චා වත සංඛාරා - උප්පාදවයධම්මිනෝ<br>උප්පජ්ජිත්වා නිරුජ්ඣන්ති -... තේසං වූපසමෝ සුඛෝ",
-                mainText: "පුරා වසර 45ක් මුළුල්ලේ ලෝක සත්වයා කෙරෙහි මහා කරුණාවෙන් යුතුව සදහම් දේශනා කොට, වයස අවුරුදු 80 දී කුසිනාරා නුවර මල්ල රජදරුවන්ගේ උපවත්තන සල් උද්‍යානයේදී වෙසක් පුර පසළොස්වක පොහෝ දිනක අනුපාදිශේෂ නිර්වාණ ධාතුවෙන් බුදුරජාණන් වහන්සේ පිරිනිවන් පෑ සේක. 'වයධම්මා සංඛාරා, අප්පමාදේන සම්පාදේථ' යන අවසාන බුදු වදන සිහිපත් කරමින් උන්වහන්සේ පිරිනිවී ගිය සේක."
+                gatha: "අනිච්චා වත සංඛාරා - උප්පාදවයධම්මිනෝ<br>උප්පජ්ජිත්වා නිරුජ්ඣන්ති - තේසං වූපසමෝ සුඛෝ",
+                mainText: "පුරා වසර 45ක් මුළුල්ලේ ලෝක සත්වයා කෙරෙහි මහා කරුණාවෙන් යුතුව සදහම් දේශනා කොට, වයස අවුරුදු 80 දී කුසිනාරා නුවර මල්ල රජදරුවන්ගේ උපවත්තන සල් උද්‍යානයේදී වෙසක් පුර පසළොස්වක පොහෝ දිනක අනුපාදිශේෂ නිර්වාණ ධාතුවෙන් බුදුරජාණන් වහන්සේ පිරිනිවන් පෑ සේක. 'වයධම්මා සංඛාරා, අප්පමාදේන සම්පාදේථ' යන අවසාන බුදු වදනසිහිපත් කරමින් උන්වහන්සේ පිරිනිවී ගිය සේක."
             }
         };
 
-        // Play Now බටන් එක ක්ලික් කරාම වීඩියෝ එක Autoplay වෙන කෑල්ල
         function startVideoNow() {
             const video = document.getElementById('vesakVideo');
             video.src = "https://www.youtube.com/embed/SBRWnqemVJU?start=35&autoplay=1&controls=0&showinfo=0&rel=0&iv_load_policy=3";
         }
 
-        // NAVIGATION: හෝම් පේජ් එක හංගලා වෙනම විස්තර පිටුව පෙන්වීම
         function navigateToDetails(id) {
             const data = pageDataset[id];
             const homepage = document.getElementById('mainHomepage');
             const detailPage = document.getElementById('detailPage');
             const dynamicContent = document.getElementById('pageDynamicContent');
 
-            // විස්තර විතරක් අලුත් පිටුවට එන්න හදන ටෙම්ප්ලේට් එක
             dynamicContent.innerHTML = `
                 <h2>${data.title}</h2>
                 <div class="gatha-box">${data.gatha}</div>
                 <p class="detail-body-text">${data.mainText}</p>
             `;
 
-            // හෝම් පේජ් එක display:none කරලා හංගනවා, විස්තර පේජ් එක display:block කරනවා
             homepage.style.display = 'none';
             detailPage.style.display = 'block';
-            
             window.scrollTo(0, 0);
         }
 
-        // NAVIGATION BACK: විස්තර පිටුව වහලා ආපහු හෝම් පේජ් එක ලෝඩ් කිරීම
         function backToHome() {
             const homepage = document.getElementById('mainHomepage');
             const detailPage = document.getElementById('detailPage');
             const dynamicContent = document.getElementById('pageDynamicContent');
 
-            // දත්ත ටික මකලා පිටු මාරු කරනවා
             dynamicContent.innerHTML = '';
             detailPage.style.display = 'none';
             homepage.style.display = 'block';
-
             window.scrollTo(0, 0);
         }
+
+        // DYNAMIC VESAK KUDU GENERATOR
+        const lanternBox = document.getElementById('lanternBox');
+        function createVesakKudu() {
+            for (let i = 0; i < 15; i++) {
+                const kudu = document.createElement('div');
+                kudu.className = 'vesak-kudu';
+                kudu.style.left = Math.random() * 95 + 'vw';
+                kudu.style.animationDuration = (Math.random() * 6 + 9) + 's'; 
+                kudu.style.animationDelay = Math.random() * 8 + 's';
+                
+                const size = Math.random() * 15 + 15;
+                kudu.style.width = size + 'px';
+                kudu.style.height = size + 'px';
+
+                lanternBox.appendChild(kudu);
+            }
+        }
+        createVesakKudu();
     </script>
 </body>
 </html>
