@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>සිරි වෙසක් Mංගල්‍යය - 2570</title>
+    <title>සිරි වෙසක් මංගල්‍යය - 2570</title>
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
@@ -76,20 +76,29 @@
             display: block;
         }
 
-        /* Main Video Section */
+        /* PREMIUM VIDEO CONTAINER CROPPER TRICK */
+        /* උඩ තියෙන Title බාර් එක සහ අනවශ්‍ය කෑලි හංගන ප්‍රධාන මැජික් කෑල්ල */
         .main-player-section {
             width: 100%;
             max-width: 850px;
             margin: 0 auto 20px auto;
             border-radius: 24px;
-            overflow: hidden;
+            overflow: hidden; /* වීඩියෝ එකෙන් පිට පනින කෑලි හංගනවා */
             border: 1px solid rgba(255, 215, 0, 0.3);
             box-shadow: 0 20px 50px rgba(0, 0, 0, 0.9);
             aspect-ratio: 16/9;
+            position: relative;
+            background: #000;
         }
 
+        /* යූටියුබ් එකේ උඩ කෑල්ලයි යට කෑල්ලයි ස්ක්‍රීන් එකෙන් එළියට තල්ලු කරලා හංගනවා */
         .main-player-section iframe {
-            width: 100%; height: 100%; display: block;
+            position: absolute;
+            top: -12%; /* උඩින් 12%ක් ඉහළට තල්ලු කරලා Title එක හංගනවා */
+            left: -1%;
+            width: 102%; 
+            height: 124%; /* වීඩියෝ එකේ උස වැඩි කරලා Zoom එකක් දෙනවා */
+            border: none;
         }
 
         /* Play Now Button Styling */
@@ -116,7 +125,7 @@
             box-shadow: 0 8px 25px rgba(255, 215, 0, 0.5);
         }
 
-        /* Dynamic Description Area (Shows text when cards clicked) */
+        /* Dynamic Description Area */
         .dynamic-info-box {
             max-width: 850px;
             margin: 0 auto 40px auto;
@@ -125,7 +134,7 @@
             border: 1px dashed rgba(255, 215, 0, 0.2);
             border-radius: 16px;
             text-align: left;
-            display: none; /* Hidden until card is clicked */
+            display: none;
         }
 
         .dynamic-info-box h2 {
@@ -209,7 +218,7 @@
         </header>
 
         <div class="main-player-section" data-aos="zoom-in">
-            <iframe id="vesakVideo" src="https://www.youtube.com/embed/SBRWnqemVJU?start=35" title="Vesak Special Video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+            <iframe id="vesakVideo" src="https://www.youtube.com/embed/SBRWnqemVJU?start=35&controls=0&showinfo=0&rel=0&iv_load_policy=3" title="Vesak Special Video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
         </div>
 
         <button class="play-now-btn" onclick="startVideoNow()">
@@ -258,7 +267,6 @@
     <script>
         AOS.init({ duration: 1000, once: true });
 
-        // TEXT ONLY DATABASE (කාඩ්ස් වලට අදාළ විස්තර විතරයි)
         const textDatabase = {
             birth: {
                 title: "උතුම් බෝසත් උත්පත්තිය",
@@ -272,18 +280,17 @@
             },
             parinirvana: {
                 title: "මහා පිරිනිවන් පෑම",
-                gatha: "අනිච්චා වත සංඛාරා - උප්පාදවයධම්මිනෝ<br>උප්පජ්ජිත්වා නිරුජ්ඣන්ති - තේසං වූපසමෝ සුඛෝ",
+                gatha: "අනිච්චා වත සංඛාරා - උප්පාදවයධම්මිනෝ<br>උප්පජ්ජිත්වා නිරුජඣන්ති - තේසං වූපසමෝ සුඛෝ",
                 text: "පුරා වසර 45ක් මුළුල්ලේ ලෝක සත්වයා කෙරෙහි මහා කරුණාවෙන් යුතුව සදහම් දේශනා කොට, වයස අවුරුදු 80 දී කුසිනාරා නුවර මල්ල රජදරුවන්ගේ උපවත්තන සල් උද්‍යානයේදී වෙසක් පුර පසළොස්වක පොහෝ දිනක අනුපාදිශේෂ නිර්වාණ ධාතුවෙන් බුදුරජාණන් වහන්සේ පිරිනිවන් පෑ සේක."
             }
         };
 
-        // Play Now බටන් එක ක්ලික් කරාම විතරක් වීඩියෝ එක Autoplay වෙන ෆන්ක්ෂන් එක
+        // Play Now බටන් එක ක්ලික් කරාම CSS Crop එක ඇතුළෙන්ම වීඩියෝ එක Autoplay වෙනවා
         function startVideoNow() {
             const video = document.getElementById('vesakVideo');
-            video.src = "https://www.youtube.com/embed/SBRWnqemVJU?start=35&autoplay=1";
+            video.src = "https://www.youtube.com/embed/SBRWnqemVJU?start=35&autoplay=1&controls=0&showinfo=0&rel=0&iv_load_policy=3";
         }
 
-        // කාඩ් එකක් ක්ලික් කරාම කිසිම වීඩියෝ එකක් ප්ලේ නොවී විස්තර විතරක් මැදින් පෙන්වන ෆන්ක්ෂන් එක
         function showTextDetails(key) {
             const box = document.getElementById('infoBox');
             const title = document.getElementById('infoTitle');
@@ -291,15 +298,12 @@
             const text = document.getElementById('infoText');
             const data = textDatabase[key];
 
-            // Content එක විතරක් වෙනස් කරනවා
             title.innerText = data.title;
             gatha.innerHTML = data.gatha;
             text.innerText = data.text;
 
-            // බොක්ස් එක ලස්සනට පෙන්වනවා
             box.style.display = 'block';
 
-            // විස්තරේ ලඟට Smooth විදිහට පේජ් එක ස්ක්‍රෝල් කරනවා
             window.scrollTo({
                 top: box.offsetTop - 60,
                 behavior: 'smooth'
