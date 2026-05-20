@@ -13,7 +13,7 @@
             --gold: #ffd700;
             --deep-gold: #b8860b;
             --bg-dark: #070502;
-            --card-bg: rgba(20, 16, 10, 0.7);
+            --card-bg: rgba(20, 16, 10, 0.75);
             --border-gold: rgba(255, 215, 0, 0.15);
         }
 
@@ -36,30 +36,13 @@
             pointer-events: none;
         }
 
-        /* Floating Pahan Lights */
-        .pahan {
-            position: fixed;
-            width: 4px; height: 4px;
-            background: var(--gold);
-            border-radius: 50%;
-            box-shadow: 0 0 10px 2px var(--gold);
-            z-index: -1;
-            pointer-events: none;
-            animation: floatUp linear infinite;
-        }
-
-        @keyframes floatUp {
-            0% { transform: translateY(105vh) scale(0); opacity: 0; }
-            50% { opacity: 0.8; }
-            100% { transform: translateY(-10vh) scale(1.5); opacity: 0; }
-        }
-
-        /* Layout Container */
-        .container { 
+        /* 1. MAIN HOMEPAGE LAYOUT WRAPPER */
+        #mainHomepage {
             max-width: 1050px; 
             margin: 0 auto; 
             padding: 50px 20px; 
             text-align: center; 
+            display: block; /* මුල් පිටුව පෙන්වීමට */
         }
 
         h1 {
@@ -76,7 +59,7 @@
             display: block;
         }
 
-        /* 100% CLEAN HTML5 VIDEO PLAYER (No YouTube branding at all) */
+        /* 100% CLEAN CROPPER: YouTube එකේ කිසිම බාර් එකක් පේන්නැති වෙන්න වටෙන් කපන බොක්ස් එක */
         .main-player-section {
             width: 100%;
             max-width: 850px;
@@ -86,14 +69,18 @@
             border: 1px solid rgba(255, 215, 0, 0.3);
             box-shadow: 0 20px 50px rgba(0, 0, 0, 0.9);
             aspect-ratio: 16/9;
+            position: relative;
             background: #000;
         }
 
-        .main-player-section video {
-            width: 100%;
-            height: 100%;
-            object-fit: cover; /* වීඩියෝ එක ප්ලේයර් එකට ලස්සනට ෆිට් වෙනවා */
-            display: block;
+        /* හැම Monitor එකකම YouTube Title එක සදහටම හංගන්න උඩින් සහ යටින් 15%ක් Crop කරනවා */
+        .main-player-section iframe {
+            position: absolute;
+            top: -15%; 
+            left: -1%;
+            width: 102%; 
+            height: 130%; 
+            border: none;
         }
 
         /* Play Now Button Styling */
@@ -120,45 +107,7 @@
             box-shadow: 0 8px 25px rgba(255, 215, 0, 0.5);
         }
 
-        /* Dynamic Description Area */
-        .dynamic-info-box {
-            max-width: 850px;
-            margin: 0 auto 40px auto;
-            padding: 25px;
-            background: rgba(255, 215, 0, 0.03);
-            border: 1px dashed rgba(255, 215, 0, 0.2);
-            border-radius: 16px;
-            text-align: left;
-            display: none;
-        }
-
-        .dynamic-info-box h2 {
-            font-family: 'Abhaya Libre', serif;
-            color: var(--gold);
-            margin: 0 0 15px 0;
-            font-size: 1.8rem;
-        }
-
-        .gatha-text {
-            font-family: 'Abhaya Libre', serif;
-            font-size: 1.2rem;
-            color: #f7e6c4;
-            background: rgba(139, 92, 26, 0.15);
-            padding: 15px;
-            border-left: 3px solid var(--gold);
-            border-radius: 6px;
-            margin-bottom: 15px;
-            line-height: 1.6;
-        }
-
-        .body-desc-text {
-            color: #dcdcdc;
-            line-height: 1.7;
-            font-size: 1rem;
-            margin: 0;
-        }
-
-        /* Cards Grid Layout */
+        /* Grid Cards Layout */
         .grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -196,7 +145,68 @@
 
         .card p { color: #aaaaaa; line-height: 1.5; margin: 0; font-size: 0.88rem; }
 
-        footer { margin-top: 60px; padding-top: 20px; border-top: 1px solid rgba(255, 215, 0, 0.05); }
+
+        /* 2. COMPLETELY SEPARATE DETAILED PAGE LAYOUT */
+        /* කාඩ් එකක් ක්ලික් කරාම විතරක් මුළු ස්ක්‍රීන් එකම වැහෙන්න ඕපන් වෙන පේජ් එක */
+        #detailPage {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 60px 20px;
+            display: none; /* ආරම්භයේදී මේ පිටුව සම්පූර්ණයෙන්ම හංගලා තියෙන්නේ */
+        }
+
+        /* Back Button Styling */
+        .back-btn {
+            background: rgba(255, 215, 0, 0.08);
+            border: 1px solid rgba(255, 215, 0, 0.25);
+            color: var(--gold);
+            padding: 12px 28px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-family: 'Noto Sans Sinhala', sans-serif;
+            margin-bottom: 45px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+
+        .back-btn:hover {
+            background: var(--gold); color: #000;
+            transform: translateX(-3px);
+        }
+
+        .detail-content h2 {
+            font-family: 'Abhaya Libre', serif;
+            font-size: clamp(2rem, 5vw, 3rem);
+            color: var(--gold);
+            margin: 0 0 25px 0;
+        }
+
+        .gatha-box {
+            background: rgba(139, 92, 26, 0.15);
+            border-left: 4px solid var(--gold);
+            border-radius: 12px;
+            padding: 25px;
+            margin: 30px 0;
+            text-align: center;
+            font-family: 'Abhaya Libre', serif;
+            font-size: 1.35rem;
+            color: #f7e6c4;
+            line-height: 1.8;
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.5);
+        }
+
+        .detail-body-text {
+            color: #dcdcdc; 
+            font-size: 1.15rem; 
+            line-height: 1.9; 
+            text-align: justify;
+        }
+
+        footer { margin-top: 60px; padding-top: 20px; border-top: 1px solid rgba(255, 215, 0, 0.05); text-align: center;}
         .dev-badge { color: rgba(255, 215, 0, 0.5); text-decoration: none; font-weight: 700; font-size: 0.9rem; }
         .unit-tag { margin-top: 5px; font-size: 0.75rem; color: #555; letter-spacing: 2px; }
     </style>
@@ -204,54 +214,44 @@
 <body>
 
     <div class="bg-overlay"></div>
-    <div id="pahanContainer"></div>
 
-    <div class="container">
+    <div id="mainHomepage">
         <header data-aos="fade-down">
             <h1>සිරි වෙසක් මංගල්‍යය</h1>
             <span class="sub-header">අසිරිමත් සම්බුදු තෙමඟුල උපහාරයකි</span>
         </header>
 
         <div class="main-player-section" data-aos="zoom-in">
-            <video id="vesakVideo" preload="auto">
-                <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" type="video/mp4">
-                Your browser does not support the video tag.
-            </video>
+            <iframe id="vesakVideo" src="https://www.youtube.com/embed/SBRWnqemVJU?start=35&controls=0&showinfo=0&rel=0&iv_load_policy=3" title="Vesak Special Video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
         </div>
 
         <button class="play-now-btn" onclick="startVideoNow()">
             <i class="fa-solid fa-play"></i> Play Now
         </button>
 
-        <div class="dynamic-info-box" id="infoBox">
-            <h2 id="infoTitle">මාතෘකාව</h2>
-            <div class="gatha-text" id="infoGatha">ගාථාව...</div>
-            <p class="body-desc-text" id="infoText">විස්තරය...</p>
-        </div>
-
         <div class="grid">
-            <div class="card" data-aos="fade-up" data-aos-delay="100" onclick="showTextDetails('birth')">
+            <div class="card" data-aos="fade-up" data-aos-delay="100" onclick="navigateToDetails('birth')">
                 <div class="card-img-wrapper">
                     <img src="https://i.ytimg.com/vi/hduMQXJkELU/hqdefault.jpg" alt="Birth">
                 </div>
                 <span class="tag">බෝසතුන්ගේ උත්පත්තිය</span>
-                <p>උතුම් බෝසත් උත්පත්තියේ විස්තර කියවීමට Click කරන්න...</p>
+                <p>උතුම් බෝසත් උත්පත්තියේ සියලු විස්තර වෙනම පිටුවකින් කියවීමට මෙතන Click කරන්න...</p>
             </div>
             
-            <div class="card" data-aos="fade-up" data-aos-delay="200" onclick="showTextDetails('enlightenment')">
+            <div class="card" data-aos="fade-up" data-aos-delay="200" onclick="navigateToDetails('enlightenment')">
                 <div class="card-img-wrapper">
                     <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR9sWNfP1QWfxzlxtVKFtkSSEMgV-xieoE_4w&s" alt="Enlightenment">
                 </div>
                 <span class="tag">උතුම් බුද්ධත්වය</span>
-                <p>ලොව්තුරා බුද්ධත්වයට පත්වීමේ විස්තර කියවීමට Click කරන්න...</p>
+                <p>ලොව්තුරා බුද්ධත්වයට පත්වීමේ සියලු විස්තර වෙනම පිටුවකින් කියවීමට මෙතන Click කරන්න...</p>
             </div>
 
-            <div class="card" data-aos="fade-up" data-aos-delay="300" onclick="showTextDetails('parinirvana')">
+            <div class="card" data-aos="fade-up" data-aos-delay="300" onclick="navigateToDetails('parinirvana')">
                 <div class="card-img-wrapper">
                     <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRyqDaEsdklzgsFnBcB_8OMlNdkgVckCs2ZPg&s" alt="Parinirvana">
                 </div>
                 <span class="tag">මහා පිරිනිවන් පෑම</span>
-                <p>මහා පිරිනිවන් පෑමේ විස්තර කියවීමට Click කරන්න...</p>
+                <p>මහා පිරිනිවන් පෑමේ සියලු විස්තර වෙනම පිටුවකින් කියවීමට මෙතන Click කරන්න...</p>
             </div>
         </div>
 
@@ -261,73 +261,85 @@
         </footer>
     </div>
 
+
+    <div id="detailPage">
+        <button class="back-btn" onclick="backToHome()">
+            <i class="fa-solid fa-arrow-left"></i> පෙර පිටුවට
+        </button>
+        
+        <div id="pageDynamicContent" class="detail-content">
+            </div>
+        
+        <footer>
+            <a href="#" class="dev-badge">M.U.R.D.D. Fonseka</a>
+            <p class="unit-tag">G.C.C. MEDIA UNIT & ICT CLUB</p>
+        </footer>
+    </div>
+
+
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        AOS.init({ duration: 1000, once: true });
+        AOS.init({ duration: 800, once: true });
 
-        const video = document.getElementById('vesakVideo');
-
-        // වීඩියෝ එක ලෝඩ් වෙද්දීම හරියටම තත්පර 35 ට සෙට් කරන මැජික් කෑල්ල
-        video.addEventListener('loadedmetadata', function() {
-            video.currentTime = 35; 
-        });
-
-        const textDatabase = {
+        // විස්තර විතරක් අඩංගු ඩේටාබේස් එක
+        const pageDataset = {
             birth: {
                 title: "උතුම් බෝසත් උත්පත්තිය",
                 gatha: "ජාතෝ සකේ සුත්තපදේ මනුස්සෝ<br>ලෝකේ අගෝ අසමෝ සදේවකේ",
-                text: "මහමායා දේවි මව් කුස පිළිසිඳගෙන දස මසක් ඇවෑමෙන්, වෙසක් පුර පසළොස්වක පොහෝ දිනක ලුම්බිණි සල් උයනේදී අප මහා බෝසතාණන් වහන්සේ මෙලොව උපත ලැබූ සේක. උපත ලැබූ සැනින් උතුරු දිශාවට පියවර සතක් තබා අභීතසිංහනාද පෘථිවිය සිසාරා පැවැත්වූ සේක."
+                mainText: "මහමායා දේවි මව් කුස පිළිසිඳගෙන දස මසක් ඇවෑමෙන්, වෙසක් පුර පසළොස්වක පොහෝ දිනක ලුම්බිණි සල් උයනේදී අප මහා බෝසතාණන් වහන්සේ මෙලොව උපත ලැබූ සේක. උපත ලැබූ සැනින් උතුරු දිශාවට පියවර සතක් තබා අභීත සිංහනාද පෘථිවිය සිසාරා පැවැත්වූ සේක. එසේම මෙම උතුම් වෙසක් පොහෝ දිනකම සිදු වූ බෝසත් උපත මුළු මහත් ලෝකයාගේම අවිද්‍යාව දුරු කිරීමට මඟ පෑදූ ප්‍රථම ආශ්චර්යවත් සිදුවීම වේ."
             },
             enlightenment: {
                 title: "ලොව්තුරා බුද්ධත්වයට පත්වීම",
-                gatha: "අනේකජාති සංසාරං - සන්ධාවිස්සං අනිබ්බිසං<br>ගහකාරකං ගවේසන්තෝ - දුක්ඛා ජාති පුනප්පුනං",
-                text: "සය වසරක් මුළුල්ලේ අතිශය දුෂ්කර ක්‍රියා කොට, අවසානයේ මධ්‍යම ප්‍රතිපදාව ඔස්සේ බුද්ධගයාවේ ශ්‍රී මහා බෝධි මූලයේ වජ්‍රාසනය මත වැඩසිටිමින්, දසබිම්බරක් මාර සේනාව පරාජය කොට උදාර වෙසක් පොහෝ දිනක ලොව්තුරා බුද්ධත්වයට පත් වූ සේක."
+                gatha: "අනේකජාති සංසාරං - සන්ධාවිස්සං අනිබ්බිසං<br>Capගහකාරකං ගවේසන්තෝ - දුක්ඛා ජාති පුනප්පුනං",
+                mainText: "සය වසරක් මුළුල්ලේ අතිශය දුෂ්කර ක්‍රියා කොට, අවසානයේ මධ්‍යම ප්‍රතිපදාව ඔස්සේ ආනාපානසති භාවනාව වඩා බුද්ධගයාවේ ශ්‍රී මහා බෝධි මූලයේ වජ්‍රාසනය මත වැඩසිටිමින්, දසබිම්බරක් මාර සේනාව පරාජය කොට උදාර වෙසක් පොහෝ දිනක ලොව්තුරා බුද්ධත්වයට පත් වූ සේක. චතුරාර්ය සත්‍යය අවබෝධ කරගනිමින් ලෝකයටම සැනසීමේ උතුම් නිවන් මඟ දේශනා කරන්නට මඟ පෑදුනේ මෙම අසිරිමත් බුද්ධත්වයත් සමඟය."
             },
             parinirvana: {
                 title: "මහා පිරිනිවන් පෑම",
-                gatha: "අනිච්චා වත සංඛාරා - උප්පාදවයධම්මිනෝ<br>උප්පජ්ජිත්වා නිරුජ්ඣන්ති - තේසං වූපසමෝ සුඛෝ",
-                text: "පුරා වසර 45ක් මුළුල්ලේ ලෝක සත්වයා කෙරෙහි මහා කරුණාවෙන් යුතුව සදහම් දේශනා කොට, වයස අවුරුදු 80 දී කුසිනාරා නුවර මල්ල රජදරුවන්ගේ උපවත්තන සල් උද්‍යානයේදී වෙසක් පුර පසළොස්වක පොහෝ දිනක අනුපාදිශේෂ නිර්වාණ ධාතුවෙන් බුදුරජාණන් වහන්සේ පිරිනිවන් පෑ සේක."
+                gatha: "අනිච්චා වත සංඛාරා - උප්පාදවයධම්මිනෝ<br>උප්පජ්ජිත්වා නිරුජ්ඣන්ති -... තේසං වූපසමෝ සුඛෝ",
+                mainText: "පුරා වසර 45ක් මුළුල්ලේ ලෝක සත්වයා කෙරෙහි මහා කරුණාවෙන් යුතුව සදහම් දේශනා කොට, වයස අවුරුදු 80 දී කුසිනාරා නුවර මල්ල රජදරුවන්ගේ උපවත්තන සල් උද්‍යානයේදී වෙසක් පුර පසළොස්වක පොහෝ දිනක අනුපාදිශේෂ නිර්වාණ ධාතුවෙන් බුදුරජාණන් වහන්සේ පිරිනිවන් පෑ සේක. 'වයධම්මා සංඛාරා, අප්පමාදේන සම්පාදේථ' යන අවසාන බුදු වදන සිහිපත් කරමින් උන්වහන්සේ පිරිනිවී ගිය සේක."
             }
         };
 
-        // Play Now ක්ලික් කරපු ගමන් තත්පර 35 ඉඳන් සුපිරියටම ප්ලේ වෙනවා
+        // Play Now බටන් එක ක්ලික් කරාම වීඩියෝ එක Autoplay වෙන කෑල්ල
         function startVideoNow() {
-            video.currentTime = 35;
-            video.play();
+            const video = document.getElementById('vesakVideo');
+            video.src = "https://www.youtube.com/embed/SBRWnqemVJU?start=35&autoplay=1&controls=0&showinfo=0&rel=0&iv_load_policy=3";
         }
 
-        function showTextDetails(key) {
-            const box = document.getElementById('infoBox');
-            const title = document.getElementById('infoTitle');
-            const gatha = document.getElementById('infoGatha');
-            const text = document.getElementById('infoText');
-            const data = textDatabase[key];
+        // NAVIGATION: හෝම් පේජ් එක හංගලා වෙනම විස්තර පිටුව පෙන්වීම
+        function navigateToDetails(id) {
+            const data = pageDataset[id];
+            const homepage = document.getElementById('mainHomepage');
+            const detailPage = document.getElementById('detailPage');
+            const dynamicContent = document.getElementById('pageDynamicContent');
 
-            title.innerText = data.title;
-            gatha.innerHTML = data.gatha;
-            text.innerText = data.text;
+            // විස්තර විතරක් අලුත් පිටුවට එන්න හදන ටෙම්ප්ලේට් එක
+            dynamicContent.innerHTML = `
+                <h2>${data.title}</h2>
+                <div class="gatha-box">${data.gatha}</div>
+                <p class="detail-body-text">${data.mainText}</p>
+            `;
 
-            box.style.display = 'block';
-
-            window.scrollTo({
-                top: box.offsetTop - 60,
-                behavior: 'smooth'
-            });
+            // හෝම් පේජ් එක display:none කරලා හංගනවා, විස්තර පේජ් එක display:block කරනවා
+            homepage.style.display = 'none';
+            detailPage.style.display = 'block';
+            
+            window.scrollTo(0, 0);
         }
 
-        // Pahan Particles
-        const pahanBox = document.getElementById('pahanContainer');
-        function createPahan() {
-            for (let i = 0; i < 20; i++) {
-                const pahan = document.createElement('div');
-                pahan.className = 'pahan';
-                pahan.style.left = Math.random() * 100 + 'vw';
-                pahan.style.animationDuration = (Math.random() * 5 + 5) + 's'; 
-                pahan.style.animationDelay = Math.random() * 5 + 's';
-                pahanBox.appendChild(pahan);
-            }
+        // NAVIGATION BACK: විස්තර පිටුව වහලා ආපහු හෝම් පේජ් එක ලෝඩ් කිරීම
+        function backToHome() {
+            const homepage = document.getElementById('mainHomepage');
+            const detailPage = document.getElementById('detailPage');
+            const dynamicContent = document.getElementById('pageDynamicContent');
+
+            // දත්ත ටික මකලා පිටු මාරු කරනවා
+            dynamicContent.innerHTML = '';
+            detailPage.style.display = 'none';
+            homepage.style.display = 'block';
+
+            window.scrollTo(0, 0);
         }
-        createPahan();
     </script>
 </body>
 </html>
