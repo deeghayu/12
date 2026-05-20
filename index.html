@@ -44,13 +44,13 @@
             top: 0; left: 0; 
             width: 100vw; 
             height: 100vh;
-            z-index: 2; /* Content එකට යටින්, Background එකට උඩින් */
+            z-index: 2; 
             pointer-events: none;
             overflow: hidden;
             display: block !important;
         }
 
-        /* NEW CSS-BASED VESAK KUDU SHAPE (NO BUGS, NO IMAGES) */
+        /* REAL CSS-BASED VESAK KUDU SHAPE */
         .real-vesak-kudu {
             position: absolute;
             bottom: -100px;
@@ -63,21 +63,18 @@
             animation: jsFloatUp 14s linear infinite;
         }
 
-        /* මැද ප්‍රධාන ෂේප් එක (Diamond/Rhombus) */
         .kudu-body {
             width: 0; height: 0;
             border-left: 20px solid transparent;
             border-right: 20px solid transparent;
             position: relative;
         }
-        /* කූඩුවේ උඩ ත්‍රිකෝණය */
         .kudu-body::before {
             content: ''; position: absolute;
             top: -20px; left: -20px; width: 0; height: 0;
             border-left: 20px solid transparent;
             border-right: 20px solid transparent;
         }
-        /* කූඩුවේ යට ත්‍රිකෝණය */
         .kudu-body::after {
             content: ''; position: absolute;
             top: 0; left: -20px; width: 0; height: 0;
@@ -85,7 +82,6 @@
             border-right: 20px solid transparent;
         }
 
-        /* කූඩුවේ දෙපැත්තෙන් එල්ලෙන රිබන් වැල් (Ribbons) */
         .kudu-tails {
             display: flex;
             justify-content: space-between;
@@ -142,34 +138,127 @@
             font-weight: 500;
         }
 
-        /* DYNAMIC GREETING WIDGET STYLING */
-        .vesak-message-box {
-            background: rgba(255, 215, 0, 0.03);
-            border: 1px solid rgba(255, 215, 0, 0.2);
-            border-radius: 20px;
-            padding: 25px 30px;
-            max-width: 850px;
+        /* PREMIUM TRADITIONAL VESAK GREETING CARD */
+        .vesak-greeting-card {
+            background: radial-gradient(circle at 50% 50%, rgba(139, 92, 26, 0.22) 0%, rgba(15, 11, 5, 0.95) 80%);
+            border: 2px solid var(--gold);
+            outline: 6px double rgba(255, 215, 0, 0.3);
+            outline-offset: -12px;
+            border-radius: 24px;
+            padding: 40px 35px;
+            max-width: 780px;
             margin: 0 auto 40px auto;
-            backdrop-filter: blur(10px);
-            box-shadow: inset 0 0 20px rgba(255, 215, 0, 0.02), 0 10px 30px rgba(0,0,0,0.5);
+            position: relative;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.8), inset 0 0 30px rgba(255, 215, 0, 0.1);
+            backdrop-filter: blur(12px);
         }
 
-        .vesak-message-box p {
-            color: #e0e0e0;
-            font-size: clamp(0.95rem, 2vw, 1.1rem);
-            line-height: 1.8;
-            margin: 0 0 15px 0;
-            text-align: justify;
+        /* කාඩ් එකේ කොන් හතරේ සාම්ප්‍රදායික සැරසිලි */
+        .vesak-greeting-card::before {
+            content: '❖'; position: absolute; top: 15px; left: 15px; color: var(--gold); font-size: 1.2rem; text-shadow: 0 0 8px var(--gold);
+        }
+        .card-corner-decor-tr {
+            position: absolute; top: 15px; right: 15px; color: var(--gold); font-size: 1.2rem; text-shadow: 0 0 8px var(--gold);
+        }
+        .card-corner-decor-bl {
+            position: absolute; bottom: 15px; left: 15px; color: var(--gold); font-size: 1.2rem; text-shadow: 0 0 8px var(--gold);
+        }
+        .card-corner-decor-br {
+            position: absolute; bottom: 15px; right: 15px; color: var(--gold); font-size: 1.2rem; text-shadow: 0 0 8px var(--gold);
         }
 
-        .vesak-message-box .school-wish {
+        /* BUDDHA STATUE WITH ANIMATED BUDU RES (AURA) */
+        .buddha-container {
+            position: relative;
+            width: 160px;
+            height: 160px;
+            margin: 0 auto 20px auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* කැරකෙන බුදු රැස් මාලාව (Res Aura) */
+        .budu-res-halo {
+            position: absolute;
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            background: conic-gradient(
+                from 0deg,
+                rgba(255,0,0,0.6) 0%, 
+                rgba(255,165,0,0.6) 15%, 
+                rgba(255,255,0,0.6) 30%, 
+                rgba(0,128,0,0.6) 45%, 
+                rgba(0,0,255,0.6) 60%, 
+                rgba(75,0,130,0.6) 75%,
+                rgba(255,0,0,0.6) 100%
+            );
+            filter: blur(12px);
+            animation: rotateRes 8s linear infinite;
+            z-index: 1;
+            opacity: 0.85;
+            box-shadow: 0 0 35px rgba(255, 215, 0, 0.8);
+        }
+
+        /* බුදු රැස් වල තවත් ලස්සන Glow එකක් */
+        .budu-res-glow {
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255,230,100,0.9) 0%, transparent 70%);
+            z-index: 2;
+            filter: blur(4px);
+            animation: pulseGlow 2s ease-in-out infinite alternate;
+        }
+
+        .buddha-img {
+            position: relative;
+            width: 125px;
+            height: 125px;
+            object-fit: contain;
+            z-index: 3;
+            filter: drop-shadow(0 0 10px rgba(0,0,0,0.9));
+        }
+
+        @keyframes rotateRes {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes pulseGlow {
+            0% { transform: scale(0.92); opacity: 0.7; }
+            100% { transform: scale(1.05); opacity: 1; }
+        }
+
+        .card-heading {
+            font-family: 'Abhaya Libre', serif;
+            font-size: clamp(1.6rem, 4vw, 2.2rem);
+            color: var(--gold);
+            margin: 0 0 20px 0;
+            font-weight: 700;
+            text-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
+        }
+
+        .card-body-text {
+            color: #f5edd5;
+            font-size: clamp(1rem, 2.2vw, 1.18rem);
+            line-height: 1.9;
+            margin: 0 0 25px 0;
+            text-align: center;
+        }
+
+        .card-signature {
             color: var(--gold);
             font-family: 'Abhaya Libre', serif;
-            font-size: clamp(1.1rem, 2.2vw, 1.35rem);
+            font-size: clamp(1.15rem, 2.5vw, 1.4rem);
             font-weight: 700;
             margin: 0;
-            border-top: 1px dashed rgba(255, 215, 0, 0.2);
-            padding-top: 15px;
+            border-top: 1px dashed rgba(255, 215, 0, 0.3);
+            padding-top: 20px;
+            display: inline-block;
+            width: 90%;
             text-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
         }
 
@@ -414,12 +503,23 @@
             <span class="sub-header">2570 ශ්‍රී සම්බුද්ධත්ව ජයන්ති උපහාරය</span>
         </header>
 
-        <div class="vesak-message-box" data-aos="fade-up">
-            <p>
-                2026 වර්ෂය ගෞතම බුද්ධ ශාසනය නැවත පිබිදෙන වර්ෂයයි. මේ උදාවී ඇත්තේ, සියලුම සිත් බුද්ධාලම්භන專ීතිය ඇතිවන, බුදුන් වහන්සේගේ ඉපදීම, බුදුවීම සහ පිරිනිවීම සමරන උතුම් වෙසක් සමයයි. බුදුන් වදාළ දහම් මඟ සිතේ දරාගෙන ආමිස හා ප්‍රතිපත්ති පූජාවෙන් බුදුන් පුදමු!
+        <div class="vesak-greeting-card" data-aos="fade-up">
+            <div class="card-corner-decor-tr">❖</div>
+            <div class="card-corner-decor-bl">❖</div>
+            <div class="card-corner-decor-br">❖</div>
+            
+            <div class="buddha-container">
+                <div class="budu-res-halo"></div>
+                <div class="budu-res-glow"></div>
+                <img src="https://i.pngimg.com/uploads/buddha/buddha_PNG19.png" alt="Lord Buddha" class="buddha-img">
+            </div>
+
+            <h2 class="card-heading">පින්බර වෙසක් මංගල්‍යයක් වේවා!</h2>
+            <p class="card-body-text">
+                සියලු සිත් බුද්ධාලම්භන ප්‍රීතියෙන් සනහාලන, උතුම් වෙසක් පුර පසළොස්වක පොහෝ දිනය නිමිත්තෙන් ආමිස හා ප්‍රතිපත්ති පූජාවන්ට මුල්තැන දෙමින්, ලොව්තුරා බුදුරජාණන් වහන්සේ වදාළ ශ්‍රී සද්ධර්මයේ ආශිර්වාදය සිතේ දරාගනිමු. 
             </p>
-            <h3 class="school-wish">
-                <i class="fa-solid fa-hands-praying"></i> මේ උතුම් වෙසක් සමය ඔබට ආධ්‍යාත්මික සුවය ගෙන දෙන පින්බර කාලයක් වේවායැයි ගොකරැල්ල මධ්‍ය මහා විද්‍යාලයේ වෙසක් සුබ පැතුමයි!
+            <h3 class="card-signature">
+                <i class="fa-solid fa-hands-praying"></i> ගොකරැල්ල මධ්‍ය මහා විද්‍යාලයේ ශිෂ්‍ය/ශිෂ්‍යාවන් ඇතුළු සමස්ත කාර්ය මණ්ඩලයේ උදාර වෙසක් සුබ පැතුමයි!
             </h3>
         </div>
 
@@ -496,7 +596,7 @@
             birth: {
                 title: "උතුම් බෝසත් උත්පත්තිය",
                 gatha: "ජාතෝ සකේ සුත්තපදේ මනුස්සෝ<br>ලෝකේ අගෝ අසමෝ සදේවකේ",
-                mainText: "මහමායා දේවි මව් කුස පිළිසිඳගෙන දස මසක් ඇවෑමෙන්, වෙසක් පුර පසළොස්වක පොහෝ දිනක ලුම්බිණි සල් උයනේදී අප මහා බෝසතාණන් වහන්සේ මෙලොව උපත ලැබූ සේක. උපත ලැබූ සැනින් උතුරු දිශාවට පියවර සතක් තබා අභීත සිංහනාද පෘථිවිය සිසාරා පැවැත්වූ සේක. එසේම මෙම උතුම් වෙසක් පොහෝ දිනකම සිදු වූ බෝසත් උපත මුළු මහත් ලෝකයාගේම අවිද්‍යාව දුරු කිරීමට මඟ පෑදූ ප්‍රථම ආශ්චර්යවත් සිදුවීම වේ."
+                mainText: "මහමායා දේවි මව් කුස පිළිසිඳගෙන දස මසක් ඇවෑමෙන්, වෙසක් පුර පසළොස්වක පොහෝ දිනක ලුම්බිණි සල් උයනේදී අප මහා බෝසතාණන් වහන්සේ මෙලොව උපත ලැබූ සේක. උපත ලැබූ සැනින් උතුරු දිශාවට පියවර සතක් තබා අභීතසිංහනාද පෘථිවිය සිසාරා පැවැත්වූ සේක. එසේම මෙම උතුම් වෙසක් පොහෝ දිනකම සිදු වූ බෝසත් උපත මුළු මහත් ලෝකයාගේම අවිද්‍යාව දුරු කිරීමට මඟ පෑදූ ප්‍රථම ආශ්චර්යවත් සිදුවීම වේ."
             },
             enlightenment: {
                 title: "ලොව්තුරා බුද්ධත්වයට පත්වීම",
@@ -549,36 +649,30 @@
             if(!lanternBox) return;
             
             lanternBox.innerHTML = ''; 
-            const totalLanterns = 25; // හරියටම වෙසක් කූඩු 25ක්
+            const totalLanterns = 25; 
 
-            // කූඩු වලට දාන්න ලස්සන වෙසක් Glow කලර්ස් ටිකක්
             const colorThemes = [
-                { primary: '#ffca00', shadow: '#ff9d00', tail: '#ff5100' }, // Gold / Orange
-                { primary: '#ff4500', shadow: '#ff0000', tail: '#ffaa00' }, // Bright Red / Orange
-                { primary: '#ffec8b', shadow: '#b8860b', tail: '#ffd700' }  // Soft Yellow / Gold
+                { primary: '#ffca00', shadow: '#ff9d00', tail: '#ff5100' }, 
+                { primary: '#ff4500', shadow: '#ff0000', tail: '#ffaa00' }, 
+                { primary: '#ffec8b', shadow: '#b8860b', tail: '#ffd700' }  
             ];
 
             for (let i = 0; i < totalLanterns; i++) {
                 const kuduWrapper = document.createElement('div');
                 kuduWrapper.className = 'real-vesak-kudu';
                 
-                // Randomly තෝරගත්ත කලර් තීම් එකක් දානවා
                 const theme = colorThemes[Math.floor(Math.random() * colorThemes.length)];
                 
-                // කූඩුවේ මැද බොඩි එක හදනවා
                 const body = document.createElement('div');
                 body.className = 'kudu-body';
                 
-                // CSS වලින් Border Trick එක දාලා Diamond Shape එක ඇඳීම
                 body.style.borderTop = '20px solid ' + theme.primary;
                 body.style.borderBottom = '20px solid ' + theme.primary;
                 body.style.filter = `drop-shadow(0 0 12px ${theme.shadow}) drop-shadow(0 0 25px ${theme.primary})`;
 
-                // යටින් එල්ලෙන රිබන් වැල් (Tails)
                 const tails = document.createElement('div');
                 tails.className = 'kudu-tails';
                 
-                // CSS Injecting via Javascript variables
                 const styleTag = document.createElement('style');
                 styleTag.innerHTML = `
                     .real-vesak-kudu .kudu-body::before { border-bottom: 20px solid ${theme.primary} !important; }
@@ -590,20 +684,17 @@
                 kuduWrapper.appendChild(body);
                 kuduWrapper.appendChild(tails);
 
-                // Animations, Speed සහ Positions සේරම random සෙට් කරනවා ස්වාභාවිකව පාවෙන්න
                 kuduWrapper.style.left = `${(Math.random() * 92)}vw`;
-                kuduWrapper.style.animationDuration = `${(Math.random() * 6 + 10)}s`; // තත්පර 10-16 අතර වේගය
-                kuduWrapper.style.animationDelay = `${(Math.random() * 15)}s`; // මුල් ටික එකපාර එන්නෙ නැතුව කලින් කලට එන්න
+                kuduWrapper.style.animationDuration = `${(Math.random() * 6 + 10)}s`; 
+                kuduWrapper.style.animationDelay = `${(Math.random() * 15)}s`; 
                 
-                // පොඩි සහ ලොකු කූඩු කලවමේ පේන්න size එක වෙනස් කිරීම
-                const scale = Math.random() * 0.5 + 0.6; // 0.6x to 1.1x size
+                const scale = Math.random() * 0.5 + 0.6; 
                 kuduWrapper.style.transform = `scale(${scale})`;
 
                 lanternBox.appendChild(kuduWrapper);
             }
         }
 
-        // පේජ් එක 100% ලෝඩ් වුණාම රන් කරන්න
         window.addEventListener('load', createVesakKudu);
     </script>
 </body>
