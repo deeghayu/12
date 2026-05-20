@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="si">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>සිරි වෙසක් මංගල්‍යය - 2570</title>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Abhaya+Libre:wght@400;700&family=Noto+Sans+Sinhala:wght@300;500;700&display=swap');
+
+        :root {
+            --gold: #ffd700;
+            --deep-gold: #b8860b;
+            --bg-dark: #070502;
+            --card-bg: rgba(20, 16, 10, 0.7);
+            --border-gold: rgba(255, 215, 0, 0.15);
+        }
+
+        body, html {
+            margin: 0; 
+            padding: 0;
+            background-color: var(--bg-dark);
+            color: #ffffff;
+            font-family: 'Noto Sans Sinhala', sans-serif;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* Ambient Background Overlay */
+        .bg-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: 
+                radial-gradient(circle at 15% 20%, rgba(255, 215, 0, 0.06) 0%, transparent 50%),
+                radial-gradient(circle at 85% 80%, rgba(255, 140, 0, 0.04) 0%, transparent 50%);
+            z-index: -2;
+            pointer-events: none;
+        }
+
+        /* 3D Rotating Dharma Chakra Background */
+        .bg-chakra-art {
+            position: fixed;
+            top: 50%; left: 50%;
+            width: min(650px, 95vw); 
+            height: min(650px, 95vw);
+            border: 2px dashed rgba(255, 215, 0, 0.015);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            z-index: -1;
+            animation: slowRotate 100s linear infinite;
+            pointer-events: none;
+        }
+        
+        .bg-chakra-art::after {
+            content: '☸';
+            position: absolute; 
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: min(420px, 65vw); 
+            color: rgba(255, 215, 0, 0.02);
+        }
+
+        @keyframes slowRotate {
+            from { transform: translate(-50%, -50%) rotate(0deg); }
+            to { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+
+        /* Floating Golden Lights (Pahan) */
+        .pahan {
+            position: fixed;
+            width: 4px; 
+            height: 4px;
+            background: var(--gold);
+            border-radius: 50%;
+            box-shadow: 0 0 10px 2px var(--gold), 0 0 18px 4px rgba(255, 140, 0, 0.4);
+            z-index: 1;
+            pointer-events: none;
+            animation: floatUp linear infinite;
+        }
+
+        @keyframes floatUp {
+            0% { transform: translateY(105vh) scale(0); opacity: 0; }
+            15% { opacity: 0.8; }
+            85% { opacity: 0.4; }
+            100% { transform: translateY(-10vh) scale(1.5); opacity: 0; }
+        }
+
+        /* Layout Container */
+        .container { 
+            max-width: 1050px; 
+            margin: 0 auto; 
+            padding: 50px 20px; 
+            text-align: center; 
+        }
+
+        /* Typography Styles */
+        h1 {
+            font-family: 'Abhaya Libre', serif;
+            font-size: clamp(2.5rem, 6vw, 4.2rem);
+            color: var(--gold);
+            margin: 0 0 10px 0;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.2);
+        }
+
+        .sub-header {
+            color: #b0b0b0;
+            font-size: clamp(0.9rem, 2vw, 1.1rem);
+            letter-spacing: 2px;
+            font-weight: 400;
+            display: block;
+            margin-bottom: 40px;
+        }
+
+        /* Premium Main Video Box */
+        .main-player-section {
+            width: 100%;
+            max-width: 850px;
+            margin: 0 auto 50px auto;
+            border-radius: 24px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), 0 0 30px rgba(255, 215, 0, 0.1);
+            background: #000;
+            aspect-ratio: 16/9;
+        }
+
+        .main-player-section iframe {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+
+        /* Content Text Area (Updates when cards clicked) */
+        .dynamic-content-box {
+            max-width: 850px;
+            margin: 0 auto 50px auto;
+            padding: 0 20px;
+            text-align: left;
+            display: none; /* Initially hidden, shows when a card is clicked */
+        }
+
+        .dynamic-content-box h2 {
+            font-family: 'Abhaya Libre', serif;
+            color: var(--gold);
+            font-size: 2.2rem;
+            margin: 0 0 15px 0;
+        }
+
+        .dynamic-content-box p {
+            color: #dcdcdc;
+            line-height: 1.8;
+            font-size: 1.05rem;
+            font-weight: 300;
+        }
+
+        /* Cards Grid Layout */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-top: 20px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-gold);
+            border-radius: 20px;
+            padding: 20px;
+            transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+            cursor: pointer;
+            text-align: left;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(255, 215, 0, 0.5);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.6), 0 0 20px rgba(255, 215, 0, 0.1);
+        }
+
+        .card-img-wrapper {
+            width: 100%;
+            height: 160px;
+            overflow: hidden;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.4);
+        }
+
+        .card img {
+            width: 100%; 
+            height: 100%;
+            object-fit: cover; 
+            filter: brightness(0.8);
+            transition: all 0.5s ease;
+        }
+        
+        .card:hover img { 
+            filter: brightness(1.05);
+            transform: scale(1.05);
+        }
+
+        .card .tag {
+            color: var(--gold);
+            font-size: 0.85rem;
+            font-weight: bold;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        .card p { 
+            color: #aaaaaa; 
+            line-height: 1.5; 
+            font-weight: 400; 
+            margin: 0;
+            font-size: 0.9rem;
+        }
+
+        /* Footer Section */
+        footer {
+            margin-top: 80px;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 215, 0, 0.05);
+        }
+
+        .dev-badge {
+            color: rgba(255, 215, 0, 0.6);
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.95rem;
+            letter-spacing: 1px;
+            transition: color 0.3s ease;
+        }
+
+        .dev-badge:hover {
+            color: var(--gold);
+        }
+
+        .unit-tag {
+            margin-top: 10px; 
+            font-size: 0.8rem; 
+            color: #555555; 
+            letter-spacing: 3px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="bg-overlay"></div>
+    <div class="bg-chakra-art"></div>
+    <div id="pahanContainer"></div>
+
+    <div class="container">
+        <header data-aos="fade-down">
+            <h1>සිරි වෙසක් මංගල්‍යය</h1>
+            <span class="sub-header">අසිරිමත් සම්බුදු තෙමඟුල උපහාරයකි</span>
+        </header>
+
+        <div class="main-player-section" data-aos="zoom-in" data-aos-delay="100">
+            <iframe id="videoPlayer" src="https://www.youtube.com/embed/S2qYJ-fQ038?autoplay=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        </div>
+
+        <div class="dynamic-content-box" id="contentBox">
+            <h2 id="contentTitle">මාතෘකාව</h2>
+            <p id="contentText">විස්තරය...</p>
+        </div>
+
+        <div class="grid">
+            <div class="card" data-aos="fade-up" data-aos-delay="100" onclick="changeVideo('birth')">
+                <div class="card-img-wrapper">
+                    <img src="https://i.ytimg.com/vi/hduMQXJkELU/hqdefault.jpg" alt="Birth">
+                </div>
+                <span class="tag">බෝසතුන්ගේ උත්පත්තිය</span>
+                <p>වැඩි විස්තර කියවීමට මෙතන Click කරන්න...</p>
+            </div>
+            
+            <div class="card" data-aos="fade-up" data-aos-delay="200" onclick="changeVideo('enlightenment')">
+                <div class="card-img-wrapper">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR9sWNfP1QWfxzlxtVKFtkSSEMgV-xieoE_4w&s" alt="Enlightenment">
+                </div>
+                <span class="tag">උතුම් බුද්ධත්වය</span>
+                <p>වැඩි විස්තර කියවීමට මෙතන Click කරන්න...</p>
+            </div>
+
+            <div class="card" data-aos="fade-up" data-aos-delay="300" onclick="changeVideo('parinirvana')">
+                <div class="card-img-wrapper">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRyqDaEsdklzgsFnBcB_8OMlNdkgVckCs2ZPg&s" alt="Parinirvana">
+                </div>
+                <span class="tag">මහා පිරිනිවන් පෑම</span>
+                <p>වැඩි විස්තර කියවීමට මෙතන Click කරන්න...</p>
+            </div>
+        </div>
+
+        <footer>
+            <a href="#" class="dev-badge">M.U.R.D.D. Fonseka</a>
+            <p class="unit-tag">G.C.C. MEDIA UNIT & ICT CLUB</p>
+        </footer>
+    </div>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({ duration: 1000, once: true });
+
+        // Database with corresponding Videos & Timestamps
+        const mediaDatabase = {
+            birth: {
+                title: "උතුම් බෝසත් උත්පත්තිය",
+                videoUrl: "https://www.youtube.com/embed/hduMQXJkELU?start=29&autoplay=1",
+                text: "ලුම්බිණි සල් උයනේ සිදු වූ ඒ උතුම් ආශ්චර්යය සහ වෙසක් පොහෝ දිනක ලොවට සිදුවූ මහා ආලෝකය... කපිලවස්තු පුරයේ සුද්ධෝදන මහරජතුමාට සහ මහාමායා දේවියට දාව සිදුහත් කුමාරයාණන් මෙලොව උපත ලැබූ සේක."
+            },
+            enlightenment: {
+                title: "ලොව්තුරා බුද්ධත්වයට පත්වීම",
+                videoUrl: "https://www.youtube.com/embed/S2qYJ-fQ038?start=10&autoplay=1",
+                text: "බුද්ධගයාවේදී මාර පරාජය කර චතුරාර්ය සත්‍යය අවබෝධ කර ගනිමින් බුදු වූ ඒ උතුම් මොහොත... වයස අවුරුදු 35 දී සියලු කෙලෙසුන් නසා උන්වහන්සේ ශ්‍රී මහා බෝධි මූලයේදී සර්වඥතාඥානය ලබාගත් සේක."
+            },
+            parinirvana: {
+                title: "මහා පිරිනිවන් පෑම",
+                videoUrl: "https://www.youtube.com/embed/SBRWnqemVJU?start=35&autoplay=1",
+                text: "කුසිනාරා නුවරදී සංස්කාර ධර්මයන්ගේ අනිත්‍යතාව පසක් කරමින් පිරිනිවන් පෑ ඒ උතුම් ශාන්තිය... මල්ල රජදරුවන්ගේ උපවත්තන සල් උයනේදී භාග්‍යවතුන් වහන්සේ අවසාන බුද්ධ වචනය දේශනා කොට වයස අවුරුදු 80 දී පිරිනිවන් පෑ සේක."
+            }
+        };
+
+        // Function to smoothly swap the video inside the top iframe
+        function changeVideo(eventKey) {
+            const player = document.getElementById('videoPlayer');
+            const box = document.getElementById('contentBox');
+            const title = document.getElementById('contentTitle');
+            const text = document.getElementById('contentText');
+            const data = mediaDatabase[eventKey];
+
+            // Update Iframe Source to play the chosen video from its specific timestamp
+            player.src = data.videoUrl;
+
+            // Update Text Description below the player beautifully
+            title.innerText = data.title;
+            text.innerText = data.text;
+            box.style.display = 'block';
+
+            // Smooth scroll back to the player so user can watch it immediately
+            window.scrollTo({
+                top: player.offsetTop - 40,
+                behavior: 'smooth'
+            });
+        }
+
+        // Generate Pahan Floating Particles
+        const container = document.getElementById('pahanContainer');
+        function createPahan() {
+            const pahanCount = 30;
+            for (let i = 0; i < pahanCount; i++) {
+                const pahan = document.createElement('div');
+                pahan.className = 'pahan';
+                pahan.style.left = Math.random() * 100 + 'vw';
+                pahan.style.animationDuration = (Math.random() * 6 + 6) + 's'; 
+                pahan.style.animationDelay = Math.random() * 8 + 's';
+                pahan.style.opacity = Math.random() * 0.6 + 0.3; 
+                container.appendChild(pahan);
+            }
+        }
+        createPahan();
+    </script>
+</body>
+</html>
